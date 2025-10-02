@@ -1,31 +1,46 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import BudgetSummary from "./components/BudgetSummary";
-import Toast from "./components/Toast";
-import { BudgetSummary as BudgetSummaryType } from "@/lib/types";
+import AddTransactionForm from "../components/AddTransactionForm";
+import TransactionList from "../components/TransactionList";
+import SearchTransactions, { SearchFilters } from "../components/SearchTransactions";
+import Toast from "../components/Toast";
+import { Category, TransactionWithCategory } from "@/lib/types";
 
-export default function Home() {
-  const [summary, setSummary] = useState<BudgetSummaryType>({
-    totalIncome: 0,
-    totalExpenses: 0,
-    balance: 0,
-    categoryBreakdown: [],
-  });
+export default function TransactionsPage() {
+  const [categories, setCategories] = useState<Category[]>([]);
+  const [transactions, setTransactions] = useState<TransactionWithCategory[]>([]);
   const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth() + 1);
   const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
   const [showAllTime, setShowAllTime] = useState(false);
   const [loading, setLoading] = useState(true);
   const [toast, setToast] = useState<{ message: string; type: "success" | "error" | "info" } | null>(null);
+  const [searchFilters, setSearchFilters] = useState<SearchFilters | null>(null);
 
   const fetchData = async () => {
     setLoading(true);
     try {
       let params = showAllTime ? "" : `?month=${selectedMonth}&year=${selectedYear}`;
 
-      const summaryRes = await fetch(`/api/summary${params}`);
+      // Add search filters to params
+      if (searchFilters) {
+        const searchParams = new URLSearchParams(params.replace('?', ''));
+        if (searchFilters.description) searchParams.set('description', searchFilters.description);
+        if (searchFilters.categoryId) searchParams.set('categoryId', searchFilters.categoryId.toString());
+        if (searchFilters.amount !== undefined && searchFilters.amountOperator) {
+          searchParams.set('amount', searchFilters.amount.toString());
+          searchParams.set('amountOperator', searchFilters.amountOperator);
+        }
+        params = `?${searchParams.toString()}`;
+      }
 
-      if (summaryRes.ok) setSummary(await summaryRes.json());
+      const [categoriesRes, transactionsRes] = await Promise.all([
+        fetch("/api/categories"),
+        fetch(`/api/transactions${params}`),
+      ]);
+
+      if (categoriesRes.ok) setCategories(await categoriesRes.json());
+      if (transactionsRes.ok) setTransactions(await transactionsRes.json());
     } catch (error) {
       console.error("Failed to fetch data:", error);
     } finally {
@@ -35,7 +50,39 @@ export default function Home() {
 
   useEffect(() => {
     fetchData();
-  }, [selectedMonth, selectedYear, showAllTime]);
+  }, [selectedMonth, selectedYear, showAllTime, searchFilters]);
+
+  const showToast = (message: string, type: "success" | "error" | "info") => {
+    setToast({ message, type });
+  };
+
+  const handleSearch = (filters: SearchFilters) => {
+    setSearchFilters(filters);
+  };
+
+  const handleResetSearch = () => {
+    setSearchFilters(null);
+  };
+
+  const handleDeleteTransaction = async (id: number) => {
+    if (!confirm("Are you sure you want to delete this transaction?")) return;
+
+    try {
+      const response = await fetch(`/api/transactions/${id}`, {
+        method: "DELETE",
+      });
+
+      if (response.ok) {
+        fetchData();
+        showToast("Transaction deleted successfully!", "success");
+      } else {
+        showToast("Failed to delete transaction", "error");
+      }
+    } catch (error) {
+      console.error("Failed to delete transaction:", error);
+      showToast("Failed to delete transaction", "error");
+    }
+  };
 
   const months = [
     "January",
@@ -61,10 +108,13 @@ export default function Home() {
         {/* Header */}
         <div className="mb-8 text-center">
           <h1 className="text-5xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 dark:from-blue-400 dark:to-indigo-400 bg-clip-text text-transparent">
-            Dashboard
+            Transactions
           </h1>
-          <p className="text-gray-600 dark:text-gray-400 mt-3 text-lg">Manage your finances with ease and clarity</p>
+          <p className="text-gray-600 dark:text-gray-400 mt-3 text-lg">Manage and track your transactions</p>
         </div>
+
+        {/* Search Transactions */}
+        <SearchTransactions categories={categories} onSearch={handleSearch} onReset={handleResetSearch} />
 
         {/* Date Filter */}
         <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-5 rounded-xl shadow-lg border border-gray-100 dark:border-gray-700 mb-6 mt-6">
@@ -124,8 +174,9 @@ export default function Home() {
             <p className="mt-2 text-gray-600 dark:text-gray-400">Loading...</p>
           </div>
         ) : (
-          <div className="relative">
-            <BudgetSummary summary={summary} onLimitUpdate={fetchData} />
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <AddTransactionForm categories={categories} onSuccess={fetchData} onShowToast={showToast} />
+            <TransactionList transactions={transactions} onDelete={handleDeleteTransaction} />
           </div>
         )}
 
