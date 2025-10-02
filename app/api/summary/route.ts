@@ -1,8 +1,9 @@
 import { NextResponse } from 'next/server';
 import db from '@/lib/db';
 import { BudgetSummary } from '@/lib/types';
+import { logApiCall } from '@/lib/middleware';
 
-export async function GET(request: Request) {
+async function getHandler(request: Request) {
   try {
     const { searchParams } = new URL(request.url);
     const month = searchParams.get('month');
@@ -54,4 +55,8 @@ export async function GET(request: Request) {
   } catch (error) {
     return NextResponse.json({ error: 'Failed to fetch summary' }, { status: 500 });
   }
+}
+
+export async function GET(req: Request) {
+  return logApiCall(req, getHandler)(req);
 }

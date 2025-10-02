@@ -1,8 +1,9 @@
 import { NextResponse } from 'next/server';
 import db from '@/lib/db';
 import { TransactionWithCategory } from '@/lib/types';
+import { logApiCall } from '@/lib/middleware';
 
-export async function PUT(request: Request, { params }: { params: Promise<{ id: string }> }) {
+async function putHandler(request: Request, { params }: { params: Promise<{ id: string }> }) {
   try {
     const { id } = await params;
     const body = await request.json();
@@ -31,7 +32,7 @@ export async function PUT(request: Request, { params }: { params: Promise<{ id: 
   }
 }
 
-export async function DELETE(request: Request, { params }: { params: Promise<{ id: string }> }) {
+async function deleteHandler(request: Request, { params }: { params: Promise<{ id: string }> }) {
   try {
     const { id } = await params;
     const stmt = db.prepare('DELETE FROM transactions WHERE id = ?');
@@ -40,4 +41,12 @@ export async function DELETE(request: Request, { params }: { params: Promise<{ i
   } catch (error) {
     return NextResponse.json({ error: 'Failed to delete transaction' }, { status: 500 });
   }
+}
+
+export async function PUT(req: Request, context: any) {
+  return logApiCall(req, (r) => putHandler(r, context))(req);
+}
+
+export async function DELETE(req: Request, context: any) {
+  return logApiCall(req, (r) => deleteHandler(r, context))(req);
 }

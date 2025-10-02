@@ -1,8 +1,9 @@
 import { NextResponse } from 'next/server';
 import db from '@/lib/db';
 import { Category } from '@/lib/types';
+import { logApiCall } from '@/lib/middleware';
 
-export async function GET() {
+async function getHandler(request: Request) {
   try {
     const categories = db.prepare('SELECT * FROM categories ORDER BY type, name').all() as Category[];
     return NextResponse.json(categories);
@@ -11,7 +12,7 @@ export async function GET() {
   }
 }
 
-export async function POST(request: Request) {
+async function postHandler(request: Request) {
   try {
     const body = await request.json();
     const { name, type, budget_limit } = body;
@@ -28,4 +29,12 @@ export async function POST(request: Request) {
   } catch (error) {
     return NextResponse.json({ error: 'Failed to create category' }, { status: 500 });
   }
+}
+
+export async function GET(req: Request) {
+  return logApiCall(req, getHandler)(req);
+}
+
+export async function POST(req: Request) {
+  return logApiCall(req, postHandler)(req);
 }
