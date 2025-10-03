@@ -24,6 +24,7 @@ export function logApiCall(request: Request, handler: (request: Request) => Prom
       method: req.method,
       path: url.pathname + url.search,
       requestBody,
+
       headers: Object.fromEntries(req.headers.entries()),
     };
 

@@ -10,7 +10,7 @@ interface TransactionListProps {
 export default function TransactionList({ transactions, onDelete }: TransactionListProps) {
   return (
     <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-gray-100 dark:border-gray-700">
-      <h2 className="text-xl font-bold mb-6 text-gray-800 dark:text-gray-200">Recent Transactions</h2>
+      <h2 className="text-xl font-bold mb-6 text-gray-800 dark:text-gray-200">Transactions</h2>
 
       {transactions.length === 0 ? (
         <div className="text-center py-12">
@@ -31,12 +31,17 @@ export default function TransactionList({ transactions, onDelete }: TransactionL
                     <div className="font-medium dark:text-gray-200">{transaction.category_name}</div>
                     <span
                       className={`text-lg font-bold ${
-                        transaction.category_type === "income"
+                        transaction.category_type === "other"
+                          ? "text-orange-600 dark:text-orange-400"
+                          : transaction.category_type === "income"
                           ? "text-green-600 dark:text-green-400"
                           : "text-red-600 dark:text-red-400"
                       }`}
                     >
-                      {transaction.category_type === "income" ? "+" : "-"}${transaction.amount.toFixed(2)}
+                      {transaction.category_type === "other"
+                        ? `$${transaction.amount.toFixed(2)}`
+                        : `${transaction.category_type === "income" ? "+" : "-"}$${transaction.amount.toFixed(2)}`
+                      }
                     </span>
                   </div>
                 </div>

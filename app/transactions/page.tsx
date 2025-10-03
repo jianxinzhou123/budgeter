@@ -64,6 +64,50 @@ export default function TransactionsPage() {
     setSearchFilters(null);
   };
 
+  const handleDeleteAll = async () => {
+    if (transactions.length === 0) {
+      showToast("No transactions to delete", "info");
+      return;
+    }
+
+    const filterDescription = showAllTime
+      ? "all transactions"
+      : `all transactions in ${months[selectedMonth - 1]} ${selectedYear}`;
+
+    if (!confirm(`Are you sure you want to delete ${filterDescription}? This action cannot be undone.`)) return;
+
+    try {
+      let params = showAllTime ? "" : `?month=${selectedMonth}&year=${selectedYear}`;
+
+      // Add search filters to params
+      if (searchFilters) {
+        const searchParams = new URLSearchParams(params.replace('?', ''));
+        if (searchFilters.description) searchParams.set('description', searchFilters.description);
+        if (searchFilters.categoryId) searchParams.set('categoryId', searchFilters.categoryId.toString());
+        if (searchFilters.amount !== undefined && searchFilters.amountOperator) {
+          searchParams.set('amount', searchFilters.amount.toString());
+          searchParams.set('amountOperator', searchFilters.amountOperator);
+        }
+        params = `?${searchParams.toString()}`;
+      }
+
+      const response = await fetch(`/api/transactions${params}`, {
+        method: "DELETE",
+      });
+
+      if (response.ok) {
+        const result = await response.json();
+        fetchData();
+        showToast(`Successfully deleted ${result.deletedCount} transaction(s)!`, "success");
+      } else {
+        showToast("Failed to delete transactions", "error");
+      }
+    } catch (error) {
+      console.error("Failed to delete transactions:", error);
+      showToast("Failed to delete transactions", "error");
+    }
+  };
+
   const handleDeleteTransaction = async (id: number) => {
     if (!confirm("Are you sure you want to delete this transaction?")) return;
 
@@ -118,52 +162,63 @@ export default function TransactionsPage() {
 
         {/* Date Filter */}
         <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-5 rounded-xl shadow-lg border border-gray-100 dark:border-gray-700 mb-6 mt-6">
-          <div className="flex flex-wrap items-center gap-4">
-            <div className="flex items-center gap-2">
-              <input
-                type="checkbox"
-                id="allTime"
-                checked={showAllTime}
-                onChange={(e) => setShowAllTime(e.target.checked)}
-                className="w-4 h-4 text-blue-600 rounded focus:ring-2 focus:ring-blue-500"
-              />
-              <label htmlFor="allTime" className="text-sm font-medium dark:text-gray-300">
-                Show All Time
-              </label>
+          <div className="flex flex-wrap items-center gap-4 justify-between">
+            <div className="flex flex-wrap items-center gap-4">
+              <div className="flex items-center gap-2">
+                <input
+                  type="checkbox"
+                  id="allTime"
+                  checked={showAllTime}
+                  onChange={(e) => setShowAllTime(e.target.checked)}
+                  className="w-4 h-4 text-blue-600 rounded focus:ring-2 focus:ring-blue-500"
+                />
+                <label htmlFor="allTime" className="text-sm font-medium dark:text-gray-300">
+                  Show All Time
+                </label>
+              </div>
+
+              {!showAllTime && (
+                <>
+                  <div>
+                    <label className="text-sm font-medium mr-2 dark:text-gray-300">Month:</label>
+                    <select
+                      value={selectedMonth}
+                      onChange={(e) => setSelectedMonth(Number(e.target.value))}
+                      className="px-4 py-2 border rounded-lg bg-white dark:bg-gray-700 dark:border-gray-600 dark:text-gray-200 shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
+                    >
+                      {months.map((month, index) => (
+                        <option key={month} value={index + 1}>
+                          {month}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+
+                  <div>
+                    <label className="text-sm font-medium mr-2 dark:text-gray-300">Year:</label>
+                    <select
+                      value={selectedYear}
+                      onChange={(e) => setSelectedYear(Number(e.target.value))}
+                      className="px-4 py-2 border rounded-lg bg-white dark:bg-gray-700 dark:border-gray-600 dark:text-gray-200 shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
+                    >
+                      {years.map((year) => (
+                        <option key={year} value={year}>
+                          {year}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                </>
+              )}
             </div>
 
-            {!showAllTime && (
-              <>
-                <div>
-                  <label className="text-sm font-medium mr-2 dark:text-gray-300">Month:</label>
-                  <select
-                    value={selectedMonth}
-                    onChange={(e) => setSelectedMonth(Number(e.target.value))}
-                    className="px-4 py-2 border rounded-lg bg-white dark:bg-gray-700 dark:border-gray-600 dark:text-gray-200 shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
-                  >
-                    {months.map((month, index) => (
-                      <option key={month} value={index + 1}>
-                        {month}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-
-                <div>
-                  <label className="text-sm font-medium mr-2 dark:text-gray-300">Year:</label>
-                  <select
-                    value={selectedYear}
-                    onChange={(e) => setSelectedYear(Number(e.target.value))}
-                    className="px-4 py-2 border rounded-lg bg-white dark:bg-gray-700 dark:border-gray-600 dark:text-gray-200 shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
-                  >
-                    {years.map((year) => (
-                      <option key={year} value={year}>
-                        {year}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-              </>
+            {transactions.length > 0 && (
+              <button
+                onClick={handleDeleteAll}
+                className="px-4 py-2 bg-red-600 hover:bg-red-700 dark:bg-red-700 dark:hover:bg-red-800 text-white rounded-lg font-medium transition-all duration-200 shadow-sm hover:shadow-md"
+              >
+                Delete All
+              </button>
             )}
           </div>
         </div>

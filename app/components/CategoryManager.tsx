@@ -13,7 +13,7 @@ export default function CategoryManager({ categories, onSuccess, onShowToast }: 
   const [isOpen, setIsOpen] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
-    type: "expense" as "income" | "expense",
+    type: "expense" as "income" | "expense" | "other",
     budget_limit: "",
   });
   const [loading, setLoading] = useState(false);
@@ -106,11 +106,12 @@ export default function CategoryManager({ categories, onSuccess, onShowToast }: 
               <label className="block text-sm font-medium mb-1 dark:text-gray-300">Type</label>
               <select
                 value={formData.type}
-                onChange={(e) => setFormData({ ...formData, type: e.target.value as "income" | "expense" })}
+                onChange={(e) => setFormData({ ...formData, type: e.target.value as "income" | "expense" | "other" })}
                 className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all bg-white dark:bg-gray-700 dark:text-gray-200"
               >
                 <option value="expense">Expense</option>
                 <option value="income">Income</option>
+                <option value="other">Other</option>
               </select>
             </div>
 
@@ -176,6 +177,26 @@ export default function CategoryManager({ categories, onSuccess, onShowToast }: 
             <div
               key={category.id}
               className="flex items-center justify-between p-4 border border-gray-200 dark:border-gray-700 rounded-xl hover:bg-gradient-to-r hover:from-gray-50 hover:to-green-50 dark:hover:from-gray-700 dark:hover:to-green-900/30 transition-all duration-200 hover:shadow-md"
+            >
+              <span className="font-medium dark:text-gray-200">{category.name}</span>
+              <button
+                onClick={() => handleDelete(category.id, category.name)}
+                className="text-red-600 dark:text-red-400 hover:text-white hover:bg-red-600 dark:hover:bg-red-700 px-3 py-1.5 rounded-lg text-sm font-medium transition-all duration-200"
+              >
+                Delete
+              </button>
+            </div>
+          ))}
+
+        <h3 className="font-semibold text-sm text-gray-700 dark:text-gray-300 uppercase tracking-wide mb-3 mt-6">
+          Other Categories
+        </h3>
+        {categories
+          .filter((c) => c.type === "other")
+          .map((category) => (
+            <div
+              key={category.id}
+              className="flex items-center justify-between p-4 border border-gray-200 dark:border-gray-700 rounded-xl hover:bg-gradient-to-r hover:from-gray-50 hover:to-purple-50 dark:hover:from-gray-700 dark:hover:to-purple-900/30 transition-all duration-200 hover:shadow-md"
             >
               <span className="font-medium dark:text-gray-200">{category.name}</span>
               <button

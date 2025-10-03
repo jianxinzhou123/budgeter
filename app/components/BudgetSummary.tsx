@@ -99,7 +99,9 @@ export default function BudgetSummary({ summary, onLimitUpdate }: BudgetSummaryP
                       <>
                         <span
                           className={`font-bold ${
-                            cat.type === "income"
+                            cat.type === "other"
+                              ? "text-orange-600 dark:text-orange-400"
+                              : cat.type === "income"
                               ? "text-green-600 dark:text-green-400"
                               : "text-red-600 dark:text-red-400"
                           }`}
@@ -131,7 +133,9 @@ export default function BudgetSummary({ summary, onLimitUpdate }: BudgetSummaryP
                       <>
                         <span
                           className={`font-bold ${
-                            cat.type === "income"
+                            cat.type === "other"
+                              ? "text-orange-600 dark:text-orange-400"
+                              : cat.type === "income"
                               ? "text-green-600 dark:text-green-400"
                               : "text-red-600 dark:text-red-400"
                           }`}

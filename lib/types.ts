@@ -1,7 +1,7 @@
 export interface Category {
   id: number;
   name: string;
-  type: 'income' | 'expense';
+  type: "income" | "expense" | "other";
   budget_limit: number;
   created_at: string;
 }
@@ -17,7 +17,7 @@ export interface Transaction {
 
 export interface TransactionWithCategory extends Transaction {
   category_name: string;
-  category_type: 'income' | 'expense';
+  category_type: "income" | "expense" | "other";
 }
 
 export interface BudgetSummary {
@@ -27,7 +27,7 @@ export interface BudgetSummary {
   categoryBreakdown: {
     category_id: number;
     category_name: string;
-    type: 'income' | 'expense';
+    type: "income" | "expense" | "other";
     total: number;
     budget_limit: number;
   }[];
