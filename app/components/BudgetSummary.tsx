@@ -17,7 +17,11 @@ export default function BudgetSummary({ summary, onLimitUpdate }: BudgetSummaryP
     setNewLimit(currentLimit.toString());
   };
 
-  const handleSaveLimit = async (categoryId: number, categoryName: string, categoryType: "income" | "expense") => {
+  const handleSaveLimit = async (
+    categoryId: number,
+    categoryName: string,
+    categoryType: "income" | "expense" | "other"
+  ) => {
     try {
       const response = await fetch(`/api/categories/${categoryId}`, {
         method: "PUT",
