@@ -28,7 +28,7 @@ export default function TransactionList({ transactions, onDelete }: TransactionL
               <div className="flex-1">
                 <div className="flex items-center gap-2">
                   <div>
-                    <div className="font-medium dark:text-gray-200">{transaction.category_name}</div>
+                    <div className="font-large dark:text-gray-200">{transaction.category_name}</div>
                     <span
                       className={`text-lg font-bold ${
                         transaction.category_type === "other"
@@ -40,8 +40,7 @@ export default function TransactionList({ transactions, onDelete }: TransactionL
                     >
                       {transaction.category_type === "other"
                         ? `$${transaction.amount.toFixed(2)}`
-                        : `${transaction.category_type === "income" ? "+" : "-"}$${transaction.amount.toFixed(2)}`
-                      }
+                        : `${transaction.category_type === "income" ? "+" : "-"}$${transaction.amount.toFixed(2)}`}
                     </span>
                   </div>
                 </div>

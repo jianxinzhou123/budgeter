@@ -50,44 +50,104 @@ export default function BudgetSummary({ summary, onLimitUpdate }: BudgetSummaryP
   return (
     <div className="space-y-6">
       {/* Overall Summary */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div className="bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/30 dark:to-emerald-900/30 p-6 rounded-xl shadow-lg border border-green-100 dark:border-green-800 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
-          <h3 className="text-sm font-semibold text-gray-600 dark:text-gray-300 uppercase tracking-wide">
-            Total Income
-          </h3>
-          <p className="text-3xl font-bold text-green-600 dark:text-green-400 mt-2">
-            ${summary.totalIncome.toFixed(2)}
-          </p>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="relative bg-gradient-to-br from-emerald-50 via-green-50 to-teal-50 dark:from-green-900/30 dark:to-emerald-900/30 p-8 rounded-2xl shadow-xl border border-emerald-100/60 dark:border-green-800 hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 hover:scale-[1.02] group overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/5 to-green-500/10 dark:from-green-500/10 dark:to-emerald-500/20"></div>
+          <div className="relative z-10">
+            <div className="flex items-center justify-between mb-3">
+              <h3 className="text-sm font-bold text-emerald-700 dark:text-emerald-300 uppercase tracking-wider">
+                Total Income
+              </h3>
+              <div className="w-3 h-3 bg-emerald-500 rounded-full animate-pulse"></div>
+            </div>
+            <p className="text-4xl font-bold text-emerald-600 dark:text-emerald-400 mb-2 group-hover:text-emerald-700 dark:group-hover:text-emerald-300 transition-colors">
+              ${summary.totalIncome.toFixed(2)}
+            </p>
+            <div className="w-full h-1 bg-emerald-200 dark:bg-emerald-800 rounded-full overflow-hidden">
+              <div className="w-full h-full bg-gradient-to-r from-emerald-400 to-green-500 animate-pulse"></div>
+            </div>
+          </div>
         </div>
 
-        <div className="bg-gradient-to-br from-red-50 to-rose-50 dark:from-red-900/30 dark:to-rose-900/30 p-6 rounded-xl shadow-lg border border-red-100 dark:border-red-800 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
-          <h3 className="text-sm font-semibold text-gray-600 dark:text-gray-300 uppercase tracking-wide">
-            Total Expenses
-          </h3>
-          <p className="text-3xl font-bold text-red-600 dark:text-red-400 mt-2">${summary.totalExpenses.toFixed(2)}</p>
+        <div className="relative bg-gradient-to-br from-rose-50 via-red-50 to-pink-50 dark:from-red-900/30 dark:to-rose-900/30 p-8 rounded-2xl shadow-xl border border-rose-100/60 dark:border-red-800 hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 hover:scale-[1.02] group overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-br from-rose-500/5 to-red-500/10 dark:from-red-500/10 dark:to-rose-500/20"></div>
+          <div className="relative z-10">
+            <div className="flex items-center justify-between mb-3">
+              <h3 className="text-sm font-bold text-rose-700 dark:text-rose-300 uppercase tracking-wider">
+                Total Expenses
+              </h3>
+              <div className="w-3 h-3 bg-rose-500 rounded-full animate-pulse"></div>
+            </div>
+            <p className="text-4xl font-bold text-rose-600 dark:text-rose-400 mb-2 group-hover:text-rose-700 dark:group-hover:text-rose-300 transition-colors">
+              ${summary.totalExpenses.toFixed(2)}
+            </p>
+            <div className="w-full h-1 bg-rose-200 dark:bg-rose-800 rounded-full overflow-hidden">
+              <div className="w-full h-full bg-gradient-to-r from-rose-400 to-red-500 animate-pulse"></div>
+            </div>
+          </div>
         </div>
 
         <div
-          className={`p-6 rounded-xl shadow-lg border hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 ${
+          className={`relative p-8 rounded-2xl shadow-xl border hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 hover:scale-[1.02] group overflow-hidden ${
             summary.balance >= 0
-              ? "bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/30 dark:to-indigo-900/30 border-blue-100 dark:border-blue-800"
-              : "bg-gradient-to-br from-orange-50 to-amber-50 dark:from-orange-900/30 dark:to-amber-900/30 border-orange-100 dark:border-orange-800"
+              ? "bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 dark:from-blue-900/30 dark:to-indigo-900/30 border-blue-100/60 dark:border-blue-800"
+              : "bg-gradient-to-br from-amber-50 via-orange-50 to-yellow-50 dark:from-orange-900/30 dark:to-amber-900/30 border-amber-100/60 dark:border-orange-800"
           }`}
         >
-          <h3 className="text-sm font-semibold text-gray-600 dark:text-gray-300 uppercase tracking-wide">Balance</h3>
-          <p
-            className={`text-3xl font-bold mt-2 ${
-              summary.balance >= 0 ? "text-blue-600 dark:text-blue-400" : "text-orange-600 dark:text-orange-400"
+          <div
+            className={`absolute inset-0 ${
+              summary.balance >= 0
+                ? "bg-gradient-to-br from-blue-500/5 to-indigo-500/10 dark:from-blue-500/10 dark:to-indigo-500/20"
+                : "bg-gradient-to-br from-amber-500/5 to-orange-500/10 dark:from-amber-500/10 dark:to-orange-500/20"
             }`}
-          >
-            ${summary.balance.toFixed(2)}
-          </p>
+          ></div>
+          <div className="relative z-10">
+            <div className="flex items-center justify-between mb-3">
+              <h3
+                className={`text-sm font-bold uppercase tracking-wider ${
+                  summary.balance >= 0 ? "text-blue-700 dark:text-blue-300" : "text-amber-700 dark:text-amber-300"
+                }`}
+              >
+                Balance
+              </h3>
+              <div
+                className={`w-3 h-3 rounded-full animate-pulse ${
+                  summary.balance >= 0 ? "bg-blue-500" : "bg-amber-500"
+                }`}
+              ></div>
+            </div>
+            <p
+              className={`text-4xl font-bold mb-2 transition-colors ${
+                summary.balance >= 0
+                  ? "text-blue-600 dark:text-blue-400 group-hover:text-blue-700 dark:group-hover:text-blue-300"
+                  : "text-amber-600 dark:text-amber-400 group-hover:text-amber-700 dark:group-hover:text-amber-300"
+              }`}
+            >
+              ${summary.balance.toFixed(2)}
+            </p>
+            <div
+              className={`w-full h-1 rounded-full overflow-hidden ${
+                summary.balance >= 0 ? "bg-blue-200 dark:bg-blue-800" : "bg-amber-200 dark:bg-amber-800"
+              }`}
+            >
+              <div
+                className={`w-full h-full animate-pulse ${
+                  summary.balance >= 0
+                    ? "bg-gradient-to-r from-blue-400 to-indigo-500"
+                    : "bg-gradient-to-r from-amber-400 to-orange-500"
+                }`}
+              ></div>
+            </div>
+          </div>
         </div>
       </div>
 
       {/* Category Breakdown */}
-      <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-6 rounded-xl shadow-lg border border-gray-100 dark:border-gray-700">
-        <h3 className="text-xl font-bold mb-6 text-gray-800 dark:text-gray-200">Category Breakdown</h3>
+      <div className="bg-white/95 dark:bg-gray-800/80 backdrop-blur-md p-8 rounded-2xl shadow-xl border border-slate-200/60 dark:border-gray-700 hover:shadow-2xl transition-all duration-300">
+        <div className="flex items-center gap-3 mb-8">
+          <div className="w-2 h-8 bg-gradient-to-b from-blue-600 to-indigo-600 rounded-full"></div>
+          <h3 className="text-2xl font-bold text-slate-800 dark:text-gray-200">Category Breakdown</h3>
+        </div>
 
         <div className="space-y-4">
           {summary.categoryBreakdown.map((cat) => {

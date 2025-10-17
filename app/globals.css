@@ -5,8 +5,379 @@
   --font-mono: var(--font-geist-mono);
 }
 
+/* Configure dark mode for Tailwind CSS v4 */
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+  }
+}
+
+/* Theme configuration for light/dark modes */
+:root {
+  --background: #ffffff;
+  --foreground: #111827;
+  --card-background: #ffffff;
+  --card-foreground: #111827;
+}
+
+:root.dark,
+.dark {
+  --background: #111827;
+  --foreground: #ffffff;
+  --card-background: #1f2937;
+  --card-foreground: #ffffff;
+}
+
+/* Ensure proper light mode defaults */
+html {
+  background-color: var(--background);
+  color: var(--foreground);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  background-color: var(--background);
+  color: var(--foreground);
+}
+
+/* Force light mode when no dark class */
+html:not(.dark) {
+  --background: #ffffff !important;
+  --foreground: #111827 !important;
+}
+
+/* Ensure Tailwind dark: classes work */
+html.dark {
+  --background: #111827 !important;
+  --foreground: #ffffff !important;
+}
+
+/* Explicit component overrides for light mode */
+html:not(.dark) .bg-white\/80,
+html:not(.dark) [class*="bg-white"] {
+  background-color: rgba(255, 255, 255, 0.8) !important;
+}
+
+html:not(.dark) .bg-gradient-to-br {
+  background: linear-gradient(to bottom right, #ffffff, #f8fafc, #eff6ff) !important;
+}
+
+html:not(.dark) .border-gray-200,
+html:not(.dark) [class*="border-gray"] {
+  border-color: #e5e7eb !important;
+}
+
+html:not(.dark) .text-gray-600,
+html:not(.dark) .text-slate-600 {
+  color: #475569 !important;
+}
+
+html:not(.dark) .text-gray-700,
+html:not(.dark) .text-slate-700 {
+  color: #334155 !important;
+}
+
+html:not(.dark) .text-gray-800,
+html:not(.dark) .text-slate-800 {
+  color: #1e293b !important;
+}
+
+html:not(.dark) .text-gray-500,
+html:not(.dark) .text-slate-500 {
+  color: #64748b !important;
+}
+
+/* Enhanced text contrast for light mode */
+html:not(.dark) p,
+html:not(.dark) span,
+html:not(.dark) div {
+  color: inherit;
+}
+
+html:not(.dark) .font-medium {
+  font-weight: 600 !important;
+}
+
+html:not(.dark) .font-semibold {
+  font-weight: 700 !important;
+}
+
+/* Make card text more readable */
+html:not(.dark) .bg-white h3,
+html:not(.dark) .bg-gradient-to-br h3 {
+  color: #475569 !important;
+  font-weight: 700 !important;
+}
+
+html:not(.dark) .bg-white p,
+html:not(.dark) .bg-gradient-to-br p {
+  color: #64748b !important;
+}
+
+/* Navbar text improvements */
+html:not(.dark) nav a,
+html:not(.dark) nav span {
+  color: #64748b !important;
+}
+
+html:not(.dark) nav .text-xs {
+  color: #94a3b8 !important;
+  font-weight: 500 !important;
+}
+
+/* Fix filter component labels and text */
+html:not(.dark) label {
+  color: #64748b !important;
+  font-weight: 500 !important;
+}
+
+html:not(.dark) input,
+html:not(.dark) select {
+  color: #475569 !important;
+}
+
+html:not(.dark) input::placeholder {
+  color: #94a3b8 !important;
+}
+
+html:not(.dark) option {
+  color: #475569 !important;
+  background-color: #ffffff !important;
+}
+
+html:not(.dark) select option {
+  background-color: #ffffff !important;
+  color: #475569 !important;
+}
+
+/* Improve checkbox and form elements */
+html:not(.dark) input[type="checkbox"] + label {
+  color: #64748b !important;
+}
+
+/* Force light mode styling for AddTransactionForm inputs */
+html:not(.dark) input[type="number"],
+html:not(.dark) input[type="text"],
+html:not(.dark) input[type="date"],
+html:not(.dark) select {
+  background-color: #ffffff !important;
+  color: #475569 !important;
+  border-color: #d1d5db !important;
+}
+
+html:not(.dark) input[type="number"]::placeholder,
+html:not(.dark) input[type="text"]::placeholder {
+  color: #94a3b8 !important;
+}
+
+/* Ensure form container backgrounds are light */
+html:not(.dark) form {
+  background-color: transparent !important;
+}
+
+html:not(.dark) .space-y-4 input,
+html:not(.dark) .space-y-4 select {
+  background-color: #ffffff !important;
+  color: #475569 !important;
+}
+
+/* Fix category hover gradients for light mode */
+html:not(.dark) .hover\:bg-gradient-to-r:hover {
+  background-image: linear-gradient(to right, var(--tw-gradient-from), var(--tw-gradient-to)) !important;
+}
+
+html:not(.dark) .hover\:from-gray-50:hover {
+  --tw-gradient-from: #f9fafb !important;
+}
+
+html:not(.dark) .hover\:to-red-50:hover {
+  --tw-gradient-to: #fef2f2 !important;
+}
+
+html:not(.dark) .hover\:to-green-50:hover {
+  --tw-gradient-to: #f0fdf4 !important;
+}
+
+html:not(.dark) .hover\:to-purple-50:hover {
+  --tw-gradient-to: #faf5ff !important;
+}
+
+html:not(.dark) .hover\:to-blue-50:hover {
+  --tw-gradient-to: #eff6ff !important;
+}
+
+/* Ensure proper light mode category borders */
+html:not(.dark) .border-gray-200 {
+  border-color: #e5e7eb !important;
+}
+
+/* Remove gradients from dashboard cards in dark mode */
+html.dark .bg-gradient-to-br {
+  background: none !important;
+}
+
+/* Dark mode card backgrounds - solid colors instead of gradients */
+html.dark [class*="from-emerald-50"][class*="to-teal-50"] {
+  background-color: #1f2937 !important;
+  background-image: none !important;
+}
+
+html.dark [class*="from-rose-50"][class*="to-pink-50"] {
+  background-color: #1f2937 !important;
+  background-image: none !important;
+}
+
+html.dark [class*="from-blue-50"][class*="to-purple-50"] {
+  background-color: #1f2937 !important;
+  background-image: none !important;
+}
+
+html.dark [class*="from-amber-50"][class*="to-yellow-50"] {
+  background-color: #1f2937 !important;
+  background-image: none !important;
+}
+
+/* Remove overlay gradients in dark mode */
+html.dark [class*="from-emerald-500/5"],
+html.dark [class*="from-rose-500/5"],
+html.dark [class*="from-blue-500/5"],
+html.dark [class*="from-amber-500/5"] {
+  background: none !important;
+  background-image: none !important;
+}
+
+/* Enhanced progress bars for light mode */
+html:not(.dark) .bg-emerald-200 {
+  background: linear-gradient(135deg, #d1fae5, #a7f3d0) !important;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1) !important;
+  border: 1px solid rgba(16, 185, 129, 0.2) !important;
+}
+
+html:not(.dark) .bg-rose-200 {
+  background: linear-gradient(135deg, #fecdd3, #fda4af) !important;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1) !important;
+  border: 1px solid rgba(244, 63, 94, 0.2) !important;
+}
+
+html:not(.dark) .bg-blue-200 {
+  background: linear-gradient(135deg, #dbeafe, #bfdbfe) !important;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1) !important;
+  border: 1px solid rgba(59, 130, 246, 0.2) !important;
+}
+
+html:not(.dark) .bg-amber-200 {
+  background: linear-gradient(135deg, #fef3c7, #fde68a) !important;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1) !important;
+  border: 1px solid rgba(245, 158, 11, 0.2) !important;
+}
+
+/* Enhanced progress bar fills for light mode */
+html:not(.dark) .bg-gradient-to-r.from-emerald-400.to-green-500 {
+  background: linear-gradient(45deg, #34d399, #10b981, #059669) !important;
+  box-shadow: 0 2px 6px rgba(16, 185, 129, 0.3) !important;
+}
+
+html:not(.dark) .bg-gradient-to-r.from-rose-400.to-red-500 {
+  background: linear-gradient(45deg, #fb7185, #ef4444, #dc2626) !important;
+  box-shadow: 0 2px 6px rgba(239, 68, 68, 0.3) !important;
+}
+
+html:not(.dark) .bg-gradient-to-r.from-blue-400.to-indigo-500 {
+  background: linear-gradient(45deg, #60a5fa, #3b82f6, #6366f1) !important;
+  box-shadow: 0 2px 6px rgba(59, 130, 246, 0.3) !important;
+}
+
+html:not(.dark) .bg-gradient-to-r.from-amber-400.to-orange-500 {
+  background: linear-gradient(45deg, #fbbf24, #f59e0b, #f97316) !important;
+  box-shadow: 0 2px 6px rgba(245, 158, 11, 0.3) !important;
+}
+
+/* Make progress bars slightly thicker and more prominent */
+html:not(.dark) .h-1.rounded-full {
+  height: 6px !important;
+  border-radius: 6px !important;
+}
+
+/* Enhanced category breakdown progress bars for light mode */
+html:not(.dark) .bg-gray-200.rounded-full.h-2\.5 {
+  background: linear-gradient(135deg, #f3f4f6, #e5e7eb) !important;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1) !important;
+  border: 1px solid rgba(156, 163, 175, 0.2) !important;
+  height: 12px !important;
+}
+
+/* Category progress bar fills - over budget (red) */
+html:not(.dark) .bg-gradient-to-r.from-red-400.to-red-500 {
+  background: linear-gradient(45deg, #f87171, #ef4444, #dc2626) !important;
+  box-shadow: 0 2px 6px rgba(239, 68, 68, 0.4) !important;
+  height: 12px !important;
+}
+
+/* Category progress bar fills - normal (blue to red transition) */
+html:not(.dark) .bg-gradient-to-r.from-blue-500.to-red-400 {
+  background: linear-gradient(45deg, #3b82f6, #8b5cf6, #f87171) !important;
+  box-shadow: 0 2px 6px rgba(59, 130, 246, 0.3) !important;
+  height: 12px !important;
+}
+
+/* Ensure category progress bars have proper rounded corners */
+html:not(.dark) .h-2\.5.rounded-full {
+  border-radius: 6px !important;
+}
+
+/* Fix transaction amount colors in light mode */
+html:not(.dark) .text-green-600 {
+  color: #16a34a !important;
+}
+
+html:not(.dark) .text-red-600 {
+  color: #dc2626 !important;
+}
+
+html:not(.dark) .text-orange-600 {
+  color: #ea580c !important;
+}
+
+/* Ensure these colors have proper contrast */
+html:not(.dark) .font-bold.text-green-600 {
+  color: #15803d !important;
+  font-weight: 700 !important;
+}
+
+html:not(.dark) .font-bold.text-red-600 {
+  color: #b91c1c !important;
+  font-weight: 700 !important;
+}
+
+html:not(.dark) .font-bold.text-orange-600 {
+  color: #c2410c !important;
+  font-weight: 700 !important;
+}
+
+/* Dark mode overrides */
+html.dark .bg-white\/80,
+html.dark [class*="bg-white"] {
+  background-color: rgba(31, 41, 55, 0.8) !important;
+}
+
+html.dark .border-gray-200 {
+  border-color: #374151 !important;
+}
+
+html.dark .text-gray-600 {
+  color: #9ca3af !important;
+}
+
+html.dark .text-gray-700 {
+  color: #d1d5db !important;
+}
+
+html.dark .text-gray-800 {
+  color: #f3f4f6 !important;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
   font-weight: 400;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -18,13 +389,19 @@ h1 {
   letter-spacing: -0.025em;
 }
 
-h2, h3, h4, h5, h6 {
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-weight: 600;
   letter-spacing: -0.01em;
 }
 
 /* Form elements - minimal overrides */
-input:focus, select:focus, textarea:focus {
+input:focus,
+select:focus,
+textarea:focus {
   outline: none;
 }
 
@@ -124,7 +501,94 @@ button:hover:not(:disabled) {
   animation: fade-in 0.5s ease-out;
 }
 
+/* Modern animations */
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+@keyframes glow {
+  0%,
+  100% {
+    box-shadow: 0 0 5px rgba(59, 130, 246, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(59, 130, 246, 0.5), 0 0 30px rgba(59, 130, 246, 0.3);
+  }
+}
+
+.float-animation {
+  animation: float 3s ease-in-out infinite;
+}
+
+.shimmer-effect {
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite;
+}
+
+.glow-effect {
+  animation: glow 2s ease-in-out infinite;
+}
+
+/* Enhanced scrollbar */
+::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: linear-gradient(180deg, #f1f5f9, #e2e8f0);
+  border-radius: 10px;
+}
+
+.dark ::-webkit-scrollbar-track {
+  background: linear-gradient(180deg, #1f2937, #111827);
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #cbd5e1, #94a3b8);
+  border-radius: 10px;
+  border: 2px solid #f1f5f9;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #4b5563, #374151);
+  border-color: #1f2937;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #94a3b8, #64748b);
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #6b7280, #4b5563);
+}
+
 /* Smooth page transitions */
 * {
   scroll-behavior: smooth;
+}
+
+/* Enhanced light mode styling */
+html:not(.dark) {
+  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+}
+
+html.dark {
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
 }

@@ -53,21 +53,24 @@ export default function Home() {
   ];
 
   const currentYear = new Date().getFullYear();
-  const years = Array.from({ length: 10 }, (_, i) => currentYear - i);
+  const years = Array.from({ length: 20 }, (_, i) => currentYear - i);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-white via-slate-50 to-blue-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 transition-colors duration-300">
-      <div className="max-w-7xl mx-auto px-4 py-8">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-indigo-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 transition-colors duration-500">
+      <div className="max-w-7xl mx-auto px-4 py-12">
         {/* Header */}
-        <div className="mb-8 text-center">
-          <h1 className="text-5xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 dark:from-blue-400 dark:to-indigo-400 bg-clip-text text-transparent">
+        <div className="mb-12 text-center">
+          <h1 className="text-6xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 dark:from-blue-400 dark:to-indigo-400 bg-clip-text text-transparent mb-4">
             Dashboard
           </h1>
-          <p className="text-gray-600 dark:text-gray-400 mt-3 text-lg">Manage your finances with ease and clarity</p>
+          <p className="text-slate-800 dark:text-gray-400 mt-4 text-xl font-semibold">
+            Manage your finances with ease and clarity
+          </p>
+          <div className="w-24 h-1 bg-gradient-to-r from-blue-600 to-indigo-600 mx-auto mt-4 rounded-full"></div>
         </div>
 
         {/* Date Filter */}
-        <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-5 rounded-xl shadow-lg border border-gray-100 dark:border-gray-700 mb-6 mt-6">
+        <div className="bg-white/90 dark:bg-gray-800/80 backdrop-blur-md p-6 rounded-2xl shadow-xl border border-slate-200/60 dark:border-gray-700 mb-8 hover:shadow-2xl transition-all duration-300 hover:scale-[1.02]">
           <div className="flex flex-wrap items-center gap-4">
             <div className="flex items-center gap-2">
               <input
@@ -77,7 +80,7 @@ export default function Home() {
                 onChange={(e) => setShowAllTime(e.target.checked)}
                 className="w-4 h-4 text-blue-600 rounded focus:ring-2 focus:ring-blue-500"
               />
-              <label htmlFor="allTime" className="text-sm font-medium dark:text-gray-300">
+              <label htmlFor="allTime" className="text-sm font-bold text-slate-800 dark:text-gray-300">
                 Show All Time
               </label>
             </div>
