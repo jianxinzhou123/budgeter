@@ -155,6 +155,60 @@ html:not(.dark) input[type="checkbox"] + label {
   color: #64748b !important;
 }
 
+/* Fix checkbox styling for light mode */
+html:not(.dark) input[type="checkbox"] {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-color: #ffffff !important;
+  border: 2px solid #d1d5db !important;
+  border-radius: 4px !important;
+  width: 16px !important;
+  height: 16px !important;
+  position: relative !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+}
+
+html:not(.dark) input[type="checkbox"]:hover {
+  border-color: #9ca3af !important;
+  background-color: #f9fafb !important;
+}
+
+html:not(.dark) input[type="checkbox"]:checked {
+  background-color: #3b82f6 !important;
+  border-color: #3b82f6 !important;
+}
+
+html:not(.dark) input[type="checkbox"]:checked::before {
+  content: "✓" !important;
+  position: absolute !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  color: #ffffff !important;
+  font-size: 12px !important;
+  font-weight: bold !important;
+  line-height: 1 !important;
+}
+
+html:not(.dark) input[type="checkbox"]:focus {
+  outline: none !important;
+  border-color: #3b82f6 !important;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1) !important;
+}
+
+/* Remove navbar hover backgrounds in light mode */
+html:not(.dark) nav a.hover\:bg-blue-50:hover,
+html:not(.dark) nav a:hover {
+  background-color: transparent !important;
+}
+
+/* Ensure navbar links maintain text color change on hover */
+html:not(.dark) nav a:hover {
+  color: #2563eb !important;
+}
+
 /* Force light mode styling for AddTransactionForm inputs */
 html:not(.dark) input[type="number"],
 html:not(.dark) input[type="text"],
@@ -352,6 +406,68 @@ html:not(.dark) .font-bold.text-red-600 {
 html:not(.dark) .font-bold.text-orange-600 {
   color: #c2410c !important;
   font-weight: 700 !important;
+}
+
+/* Safari-specific fixes for select/combo boxes */
+select {
+  /* Remove default Safari styling */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+
+  /* Custom arrow */
+  background-image: url("data:image/svg+xml;charset=US-ASCII,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 5'><path fill='%23666' d='m2 0-2 2h4zm0 5 2-2h-4z'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 12px;
+
+  /* Ensure consistent styling */
+  padding-right: 40px !important;
+  border-radius: 8px !important;
+  border: 1px solid #d1d5db !important;
+  font-family: inherit !important;
+  font-size: 14px !important;
+  line-height: 1.5 !important;
+}
+
+/* Dark mode select arrow */
+html.dark select {
+  background-image: url("data:image/svg+xml;charset=US-ASCII,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 5'><path fill='%23d1d5db' d='m2 0-2 2h4zm0 5 2-2h-4z'/></svg>");
+  border-color: #374151 !important;
+}
+
+/* Focus states for better accessibility */
+select:focus {
+  outline: none !important;
+  border-color: #3b82f6 !important;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1) !important;
+}
+
+/* Safari-specific option styling */
+select option {
+  padding: 8px 12px !important;
+  font-size: 14px !important;
+  line-height: 1.4 !important;
+}
+
+html:not(.dark) select option {
+  background-color: #ffffff !important;
+  color: #111827 !important;
+}
+
+html.dark select option {
+  background-color: #1f2937 !important;
+  color: #f9fafb !important;
+}
+
+/* Hover state for select */
+select:hover:not(:disabled) {
+  border-color: #6b7280 !important;
+  cursor: pointer;
+}
+
+html.dark select:hover:not(:disabled) {
+  border-color: #9ca3af !important;
 }
 
 /* Dark mode overrides */
