@@ -98,7 +98,7 @@ export default function Navbar() {
               <div className="relative">
                 {/* Animated text gradient */}
                 <h1 className="text-xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 dark:from-blue-400 dark:to-indigo-400 bg-clip-text text-transparent group-hover:from-blue-700 group-hover:via-purple-700 group-hover:to-indigo-700 dark:group-hover:from-blue-300 dark:group-hover:to-indigo-300 transition-all duration-300 group-hover:scale-105">
-                  Sam's Budget Tracker
+                  {`Sam's Budget Tracker`}
                 </h1>
 
                 {/* Animated underline */}
