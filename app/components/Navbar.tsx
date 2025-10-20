@@ -138,7 +138,7 @@ export default function Navbar() {
             className="relative p-3 rounded-xl bg-gradient-to-r from-slate-100 to-slate-200 dark:from-gray-800 dark:to-gray-700 hover:from-blue-100 hover:to-indigo-100 dark:hover:from-gray-700 dark:hover:to-gray-600 shadow-md hover:shadow-lg transition-all duration-300 transform hover:scale-110 group"
             aria-label="Toggle theme"
           >
-            {mounted && isDarkMode ? (
+            {isDarkMode ? (
               <svg
                 className="w-5 h-5 text-amber-500 group-hover:text-amber-400 transition-colors duration-300"
                 fill="currentColor"
