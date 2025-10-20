@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-html-link-for-pages */
 "use client";
 
 import { useTheme } from "@/app/providers/ThemeProvider";
@@ -26,7 +27,7 @@ export default function Navbar() {
                 <div className="text-4xl group-hover:scale-110 transition-transform duration-300">💰</div>
                 <div>
                   <h1 className="text-xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent group-hover:from-blue-700 group-hover:to-indigo-700 transition-all duration-300">
-                    Sam's Budget Tracker
+                    {`Sam's Budget Tracker`}
                   </h1>
                   <p className="text-xs text-slate-700 font-semibold">Manage your finances with ease.</p>
                 </div>
