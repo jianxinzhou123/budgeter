@@ -12,11 +12,18 @@ export default function Home() {
     balance: 0,
     categoryBreakdown: [],
   });
-  const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth() + 1);
-  const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
+  const [selectedMonth, setSelectedMonth] = useState(1); // Initialize with static value
+  const [selectedYear, setSelectedYear] = useState(2025); // Initialize with static value
   const [showAllTime, setShowAllTime] = useState(false);
   const [loading, setLoading] = useState(true);
   const [toast, setToast] = useState<{ message: string; type: "success" | "error" | "info" } | null>(null);
+
+  // Set current date after mounting to prevent hydration mismatch
+  useEffect(() => {
+    const now = new Date();
+    setSelectedMonth(now.getMonth() + 1);
+    setSelectedYear(now.getFullYear());
+  }, []);
 
   const fetchData = async () => {
     setLoading(true);

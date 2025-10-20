@@ -150,6 +150,10 @@ html:not(.dark) select option {
   color: #475569 !important;
 }
 
+html:not(.dark) button.bg-gray-200 {
+  color: #ffffff !important;
+}
+
 /* Improve checkbox and form elements */
 html:not(.dark) input[type="checkbox"] + label {
   color: #64748b !important;
@@ -207,6 +211,56 @@ html:not(.dark) nav a:hover {
 /* Ensure navbar links maintain text color change on hover */
 html:not(.dark) nav a:hover {
   color: #2563eb !important;
+}
+
+/* Enhanced logo animations */
+@keyframes logo-float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
+}
+
+@keyframes sparkle-spin {
+  0% {
+    transform: rotate(0deg) scale(1);
+  }
+  50% {
+    transform: rotate(180deg) scale(1.2);
+  }
+  100% {
+    transform: rotate(360deg) scale(1);
+  }
+}
+
+@keyframes money-float {
+  0% {
+    transform: translateY(0px) translateX(0px) rotate(0deg);
+    opacity: 0;
+  }
+  50% {
+    transform: translateY(-10px) translateX(5px) rotate(10deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-20px) translateX(-5px) rotate(-5deg);
+    opacity: 0;
+  }
+}
+
+/* Apply animations to logo elements */
+.logo-float {
+  animation: logo-float 3s ease-in-out infinite;
+}
+
+.sparkle-spin {
+  animation: sparkle-spin 2s ease-in-out infinite;
+}
+
+.money-float {
+  animation: money-float 2s ease-in-out infinite;
 }
 
 /* Force light mode styling for AddTransactionForm inputs */

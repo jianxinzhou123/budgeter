@@ -10,12 +10,21 @@ import { Category, TransactionWithCategory } from "@/lib/types";
 export default function TransactionsPage() {
   const [categories, setCategories] = useState<Category[]>([]);
   const [transactions, setTransactions] = useState<TransactionWithCategory[]>([]);
-  const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth() + 1);
-  const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
+  const [selectedMonth, setSelectedMonth] = useState(1); // Initialize with static value
+  const [selectedYear, setSelectedYear] = useState(2025); // Initialize with static value
   const [showAllTime, setShowAllTime] = useState(false);
   const [loading, setLoading] = useState(true);
   const [toast, setToast] = useState<{ message: string; type: "success" | "error" | "info" } | null>(null);
   const [searchFilters, setSearchFilters] = useState<SearchFilters | null>(null);
+  const [mounted, setMounted] = useState(false);
+
+  // Set current date after mounting to prevent hydration mismatch
+  useEffect(() => {
+    const now = new Date();
+    setSelectedMonth(now.getMonth() + 1);
+    setSelectedYear(now.getFullYear());
+    setMounted(true);
+  }, []);
 
   const fetchData = async () => {
     setLoading(true);
@@ -24,12 +33,12 @@ export default function TransactionsPage() {
 
       // Add search filters to params
       if (searchFilters) {
-        const searchParams = new URLSearchParams(params.replace('?', ''));
-        if (searchFilters.description) searchParams.set('description', searchFilters.description);
-        if (searchFilters.categoryId) searchParams.set('categoryId', searchFilters.categoryId.toString());
+        const searchParams = new URLSearchParams(params.replace("?", ""));
+        if (searchFilters.description) searchParams.set("description", searchFilters.description);
+        if (searchFilters.categoryId) searchParams.set("categoryId", searchFilters.categoryId.toString());
         if (searchFilters.amount !== undefined && searchFilters.amountOperator) {
-          searchParams.set('amount', searchFilters.amount.toString());
-          searchParams.set('amountOperator', searchFilters.amountOperator);
+          searchParams.set("amount", searchFilters.amount.toString());
+          searchParams.set("amountOperator", searchFilters.amountOperator);
         }
         params = `?${searchParams.toString()}`;
       }
@@ -81,12 +90,12 @@ export default function TransactionsPage() {
 
       // Add search filters to params
       if (searchFilters) {
-        const searchParams = new URLSearchParams(params.replace('?', ''));
-        if (searchFilters.description) searchParams.set('description', searchFilters.description);
-        if (searchFilters.categoryId) searchParams.set('categoryId', searchFilters.categoryId.toString());
+        const searchParams = new URLSearchParams(params.replace("?", ""));
+        if (searchFilters.description) searchParams.set("description", searchFilters.description);
+        if (searchFilters.categoryId) searchParams.set("categoryId", searchFilters.categoryId.toString());
         if (searchFilters.amount !== undefined && searchFilters.amountOperator) {
-          searchParams.set('amount', searchFilters.amount.toString());
-          searchParams.set('amountOperator', searchFilters.amountOperator);
+          searchParams.set("amount", searchFilters.amount.toString());
+          searchParams.set("amountOperator", searchFilters.amountOperator);
         }
         params = `?${searchParams.toString()}`;
       }

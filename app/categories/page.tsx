@@ -9,6 +9,7 @@ export default function CategoriesPage() {
   const [categories, setCategories] = useState<Category[]>([]);
   const [loading, setLoading] = useState(true);
   const [toast, setToast] = useState<{ message: string; type: "success" | "error" | "info" } | null>(null);
+  const [mounted, setMounted] = useState(false);
 
   const fetchCategories = async () => {
     setLoading(true);
@@ -24,11 +25,32 @@ export default function CategoriesPage() {
 
   useEffect(() => {
     fetchCategories();
+    setMounted(true);
   }, []);
 
   const showToast = (message: string, type: "success" | "error" | "info") => {
     setToast({ message, type });
   };
+
+  // Prevent hydration mismatch by not rendering theme-dependent content until mounted
+  if (!mounted) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-white via-slate-50 to-blue-50 transition-colors duration-300">
+        <div className="max-w-7xl mx-auto px-4 py-8">
+          <div className="mb-8 text-center">
+            <h1 className="text-5xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
+              Categories
+            </h1>
+            <p className="text-gray-600 mt-3 text-lg">Organize your income and expenses</p>
+          </div>
+          <div className="text-center py-12">
+            <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+            <p className="mt-2 text-gray-600">Loading...</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-white via-slate-50 to-blue-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 transition-colors duration-300">
