@@ -6,8 +6,8 @@ interface ApiLog {
   path: string;
   status?: number;
   duration?: number;
-  requestBody?: any;
-  responseBody?: any;
+  requestBody?: unknown;
+  responseBody?: unknown;
   error?: string;
   headers?: Record<string, string>;
 }
@@ -37,14 +37,14 @@ class ApiLogger {
       byMethod: {} as Record<string, number>,
       byPath: {} as Record<string, number>,
       byStatus: {} as Record<string, number>,
-      errors: this.logs.filter(log => log.error || (log.status && log.status >= 400)).length,
+      errors: this.logs.filter((log) => log.error || (log.status && log.status >= 400)).length,
       avgDuration: 0,
     };
 
     let totalDuration = 0;
     let durationCount = 0;
 
-    this.logs.forEach(log => {
+    this.logs.forEach((log) => {
       // Count by method
       stats.byMethod[log.method] = (stats.byMethod[log.method] || 0) + 1;
 

@@ -41,7 +41,7 @@ export default function CategoryManager({ categories, onSuccess, onShowToast }: 
         const error = await response.json();
         onShowToast(error.error || "Failed to add category", "error");
       }
-    } catch (error) {
+    } catch {
       onShowToast("Failed to add category", "error");
     } finally {
       setLoading(false);
@@ -68,7 +68,7 @@ export default function CategoryManager({ categories, onSuccess, onShowToast }: 
       } else {
         onShowToast("Failed to delete category", "error");
       }
-    } catch (error) {
+    } catch {
       onShowToast("Failed to delete category", "error");
     }
   };

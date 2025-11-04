@@ -14,7 +14,7 @@ export function logApiCall(request: Request, handler: (request: Request) => Prom
         const clonedRequest = req.clone();
         requestBody = await clonedRequest.json();
       }
-    } catch (e) {
+    } catch {
       // Body might not be JSON
     }
 
@@ -33,11 +33,11 @@ export function logApiCall(request: Request, handler: (request: Request) => Prom
       const duration = Date.now() - startTime;
 
       // Clone response to read body
-      let responseBody: any;
+      let responseBody: unknown;
       try {
         const clonedResponse = response.clone();
         responseBody = await clonedResponse.json();
-      } catch (e) {
+      } catch {
         // Response might not be JSON
       }
 

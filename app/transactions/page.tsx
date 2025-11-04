@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import AddTransactionForm from "../components/AddTransactionForm";
 import TransactionList from "../components/TransactionList";
 import SearchTransactions, { SearchFilters } from "../components/SearchTransactions";
@@ -16,17 +16,15 @@ export default function TransactionsPage() {
   const [loading, setLoading] = useState(true);
   const [toast, setToast] = useState<{ message: string; type: "success" | "error" | "info" } | null>(null);
   const [searchFilters, setSearchFilters] = useState<SearchFilters | null>(null);
-  const [mounted, setMounted] = useState(false);
 
   // Set current date after mounting to prevent hydration mismatch
   useEffect(() => {
     const now = new Date();
     setSelectedMonth(now.getMonth() + 1);
     setSelectedYear(now.getFullYear());
-    setMounted(true);
   }, []);
 
-  const fetchData = async () => {
+  const fetchData = useCallback(async () => {
     setLoading(true);
     try {
       let params = showAllTime ? "" : `?month=${selectedMonth}&year=${selectedYear}`;
@@ -55,11 +53,11 @@ export default function TransactionsPage() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [selectedMonth, selectedYear, showAllTime, searchFilters]);
 
   useEffect(() => {
     fetchData();
-  }, [selectedMonth, selectedYear, showAllTime, searchFilters]);
+  }, [fetchData]);
 
   const showToast = (message: string, type: "success" | "error" | "info") => {
     setToast({ message, type });

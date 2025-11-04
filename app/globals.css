@@ -77,6 +77,11 @@ html:not(.dark) .text-slate-700 {
   color: #334155 !important;
 }
 
+html:not(.dark) .text-gray-900,
+html:not(.dark) .text-slate-900 {
+  color: #0f172a !important;
+}
+
 html:not(.dark) .text-gray-800,
 html:not(.dark) .text-slate-800 {
   color: #1e293b !important;
@@ -102,7 +107,17 @@ html:not(.dark) .font-semibold {
   font-weight: 700 !important;
 }
 
-/* Make card text more readable */
+/* Make headings more readable */
+html:not(.dark) h1 {
+  color: #0f172a !important;
+}
+
+/* Exception for gradient text */
+html:not(.dark) h1.bg-clip-text,
+html:not(.dark) h1.text-transparent {
+  color: transparent !important;
+}
+
 html:not(.dark) .bg-white h3,
 html:not(.dark) .bg-gradient-to-br h3 {
   color: #475569 !important;
@@ -118,6 +133,12 @@ html:not(.dark) .bg-gradient-to-br p {
 html:not(.dark) nav a,
 html:not(.dark) nav span {
   color: #64748b !important;
+}
+
+/* Exception for sign up button - force white text */
+html:not(.dark) nav a[href="/auth/register"],
+html:not(.dark) nav a[href="/auth/register"] span {
+  color: #ffffff !important;
 }
 
 html:not(.dark) nav .text-xs {
@@ -215,7 +236,8 @@ html:not(.dark) nav a:hover {
 
 /* Enhanced logo animations */
 @keyframes logo-float {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateY(0px);
   }
   50% {

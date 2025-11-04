@@ -1,10 +1,17 @@
 import { NextResponse } from "next/server";
+import { getServerSession } from "next-auth/next";
+import { authOptions } from "@/lib/auth";
 import db from "@/lib/db";
 import { TransactionWithCategory } from "@/lib/types";
 import { logApiCall } from "@/lib/middleware";
 
 async function getHandler(request: Request) {
   try {
+    const session = await getServerSession(authOptions);
+    if (!session?.user?.id) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
     const { searchParams } = new URL(request.url);
     const month = searchParams.get("month");
     const year = searchParams.get("year");
@@ -20,9 +27,10 @@ async function getHandler(request: Request) {
         c.type as category_type
       FROM transactions t
       JOIN categories c ON t.category_id = c.id
+      WHERE t.user_id = ?
     `;
 
-    const params: any[] = [];
+    const params: (string | number)[] = [session.user.id];
     const conditions: string[] = [];
 
     if (month && year) {
@@ -53,20 +61,25 @@ async function getHandler(request: Request) {
     }
 
     if (conditions.length > 0) {
-      query += ` WHERE ${conditions.join(" AND ")}`;
+      query += ` AND ${conditions.join(" AND ")}`;
     }
 
     query += ` ORDER BY t.date DESC, t.created_at DESC`;
 
     const transactions = db.prepare(query).all(...params) as TransactionWithCategory[];
     return NextResponse.json(transactions);
-  } catch (error) {
+  } catch {
     return NextResponse.json({ error: "Failed to fetch transactions" }, { status: 500 });
   }
 }
 
 async function postHandler(request: Request) {
   try {
+    const session = await getServerSession(authOptions);
+    if (!session?.user?.id) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
     const body = await request.json();
     const { category_id, amount, description, date } = body;
 
@@ -74,8 +87,10 @@ async function postHandler(request: Request) {
       return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
     }
 
-    const stmt = db.prepare("INSERT INTO transactions (category_id, amount, description, date) VALUES (?, ?, ?, ?)");
-    const result = stmt.run(category_id, amount, description || null, date);
+    const stmt = db.prepare(
+      "INSERT INTO transactions (user_id, category_id, amount, description, date) VALUES (?, ?, ?, ?, ?)"
+    );
+    const result = stmt.run(session.user.id, category_id, amount, description || null, date);
 
     const transaction = db
       .prepare(
@@ -92,7 +107,7 @@ async function postHandler(request: Request) {
       .get(result.lastInsertRowid) as TransactionWithCategory;
 
     return NextResponse.json(transaction, { status: 201 });
-  } catch (error) {
+  } catch {
     return NextResponse.json({ error: "Failed to create transaction" }, { status: 500 });
   }
 }
@@ -112,7 +127,7 @@ async function deleteHandler(request: Request) {
     const amount = searchParams.get("amount");
 
     let query = `DELETE FROM transactions`;
-    const params: any[] = [];
+    const params: (string | number)[] = [];
     const conditions: string[] = [];
 
     if (month && year) {
@@ -153,7 +168,7 @@ async function deleteHandler(request: Request) {
       success: true,
       deletedCount: result.changes,
     });
-  } catch (error) {
+  } catch {
     return NextResponse.json({ error: "Failed to delete transactions" }, { status: 500 });
   }
 }
