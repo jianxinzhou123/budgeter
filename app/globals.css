@@ -15,9 +15,9 @@
 /* Theme configuration for light/dark modes */
 :root {
   --background: #ffffff;
-  --foreground: #ffffff;
+  --foreground: #111827;
   --card-background: #ffffff;
-  --card-foreground: #ffffff;
+  --card-foreground: #111827;
 }
 
 :root.dark,
@@ -43,7 +43,7 @@ body {
 /* Force light mode when no dark class */
 html:not(.dark) {
   --background: #ffffff !important;
-  --foreground: #ffffff !important;
+  --foreground: #111827 !important;
 }
 
 /* Ensure Tailwind dark: classes work */
@@ -118,14 +118,15 @@ html:not(.dark) h1.text-transparent {
   color: transparent !important;
 }
 
-html:not(.dark) .bg-white h3,
-html:not(.dark) .bg-gradient-to-br h3 {
+/* These rules are moved to be more specific and less aggressive */
+html:not(.dark) .welcome-page .bg-white h3,
+html:not(.dark) .welcome-page .bg-gradient-to-br h3 {
   color: #475569 !important;
   font-weight: 700 !important;
 }
 
-html:not(.dark) .bg-white p,
-html:not(.dark) .bg-gradient-to-br p {
+html:not(.dark) .welcome-page .bg-white p,
+html:not(.dark) .welcome-page .bg-gradient-to-br p {
   color: #64748b !important;
 }
 
@@ -139,6 +140,52 @@ html:not(.dark) nav span {
 html:not(.dark) nav a[href="/auth/register"],
 html:not(.dark) nav a[href="/auth/register"] span {
   color: #ffffff !important;
+}
+
+/* Exception for sign in button - force white text in welcome page */
+html:not(.dark) a[href="/auth/login"] .text-white,
+html:not(.dark) a[href="/auth/login"] span.text-white {
+  color: #ffffff !important;
+}
+
+/* Fix CTA text to be white in light mode */
+html:not(.dark) .text-blue-100 {
+  color: #ffffff !important;
+}
+
+/* Start Your Journey button styling for dark mode - dark background */
+/* Use multiple selectors to ensure maximum specificity */
+html.dark a[href="/auth/register"].bg-white.text-indigo-600.inline-flex,
+html.dark a[href="/auth/register"].bg-white.text-indigo-600,
+html.dark .bg-gradient-to-r a[href="/auth/register"].bg-white,
+html.dark a[href="/auth/register"] {
+  background: #1f2937 !important; /* gray-800 - dark background */
+  background-image: none !important;
+  color: #ffffff !important;
+  border: 1px solid #374151 !important; /* gray-700 border */
+}
+
+html.dark a[href="/auth/register"].bg-white.text-indigo-600.inline-flex:hover,
+html.dark a[href="/auth/register"].bg-white.text-indigo-600:hover,
+html.dark .bg-gradient-to-r a[href="/auth/register"].bg-white:hover,
+html.dark a[href="/auth/register"]:hover {
+  background: #374151 !important; /* gray-700 - lighter on hover */
+  background-image: none !important;
+  border-color: #4b5563 !important; /* gray-600 */
+  color: #ffffff !important;
+}
+
+/* More specific targeting for all child elements */
+html.dark a[href="/auth/register"] span,
+html.dark a[href="/auth/register"] span.relative,
+html.dark a[href="/auth/register"].text-indigo-600 span {
+  color: #ffffff !important;
+}
+
+html.dark a[href="/auth/register"] svg,
+html.dark a[href="/auth/register"].text-indigo-600 svg {
+  color: #ffffff !important;
+  stroke: #ffffff !important;
 }
 
 html:not(.dark) nav .text-xs {
@@ -785,26 +832,339 @@ html.dark {
   background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
 }
 
-/* Specific sign-in button white text override */
-html:not(.dark) a[href="/auth/login"] span.text-white,
-html:not(.dark) a[href="/auth/login"] .text-white {
+/* Admin Panel Specific Overrides */
+/* Comprehensive admin panel styling for light mode */
+
+/* Main admin panel container */
+html:not(.dark) .admin-panel {
+  background-color: #f8fafc !important;
+  color: #111827 !important;
+}
+
+/* Typography overrides - all headings and text */
+html:not(.dark) .admin-panel h1,
+html:not(.dark) .admin-panel h2,
+html:not(.dark) .admin-panel h3,
+html:not(.dark) .admin-panel h4,
+html:not(.dark) .admin-panel h5,
+html:not(.dark) .admin-panel h6 {
+  color: #111827 !important;
+}
+
+html:not(.dark) .admin-panel p {
+  color: #374151 !important;
+}
+
+html:not(.dark) .admin-panel span,
+html:not(.dark) .admin-panel div {
+  color: inherit !important;
+}
+
+/* Text color utilities - ensure proper light mode colors */
+html:not(.dark) .admin-panel .text-gray-900 {
+  color: #111827 !important;
+}
+
+html:not(.dark) .admin-panel .text-gray-800 {
+  color: #1f2937 !important;
+}
+
+html:not(.dark) .admin-panel .text-gray-700 {
+  color: #374151 !important;
+}
+
+html:not(.dark) .admin-panel .text-gray-600 {
+  color: #4b5563 !important;
+}
+
+html:not(.dark) .admin-panel .text-gray-500 {
+  color: #6b7280 !important;
+}
+
+html:not(.dark) .admin-panel .text-gray-400 {
+  color: #9ca3af !important;
+}
+
+html:not(.dark) .admin-panel .text-white {
   color: #ffffff !important;
 }
 
-/* Start Your Journey button specific styling - only target inline-flex CTA button */
-html:not(.dark) a[href="/auth/register"].inline-flex {
+/* Background color utilities */
+html:not(.dark) .admin-panel .bg-white {
   background-color: #ffffff !important;
-  color: #4f46e5 !important;
-  border: none !important;
 }
 
-html.dark a[href="/auth/register"].inline-flex {
+html:not(.dark) .admin-panel .bg-gray-50 {
+  background-color: #f9fafb !important;
+}
+
+html:not(.dark) .admin-panel .bg-gray-100 {
+  background-color: #f3f4f6 !important;
+}
+
+html:not(.dark) .admin-panel .bg-gray-200 {
+  background-color: #e5e7eb !important;
+}
+
+html:not(.dark) .admin-panel .bg-gray-700 {
+  background-color: #374151 !important;
+}
+
+html:not(.dark) .admin-panel .bg-gray-800 {
+  background-color: #1f2937 !important;
+}
+
+/* Border color utilities */
+html:not(.dark) .admin-panel .border-gray-200 {
+  border-color: #e5e7eb !important;
+}
+
+html:not(.dark) .admin-panel .border-gray-300 {
+  border-color: #d1d5db !important;
+}
+
+html:not(.dark) .admin-panel .border-gray-600 {
+  border-color: #4b5563 !important;
+}
+
+html:not(.dark) .admin-panel .border-gray-700 {
+  border-color: #374151 !important;
+}
+
+html:not(.dark) .admin-panel .divide-gray-200 > :not([hidden]) ~ :not([hidden]) {
+  border-color: #e5e7eb !important;
+}
+
+html:not(.dark) .admin-panel .divide-gray-700 > :not([hidden]) ~ :not([hidden]) {
+  border-color: #374151 !important;
+}
+
+/* Form elements styling */
+html:not(.dark) .admin-panel input,
+html:not(.dark) .admin-panel textarea,
+html:not(.dark) .admin-panel select {
+  background-color: #ffffff !important;
+  color: #111827 !important;
+  border-color: #d1d5db !important;
+}
+
+html:not(.dark) .admin-panel input::placeholder,
+html:not(.dark) .admin-panel textarea::placeholder {
+  color: #6b7280 !important;
+}
+
+html:not(.dark) .admin-panel input:focus,
+html:not(.dark) .admin-panel textarea:focus,
+html:not(.dark) .admin-panel select:focus {
+  border-color: #3b82f6 !important;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1) !important;
+}
+
+/* Button styling */
+html:not(.dark) .admin-panel button {
+  color: inherit !important;
+}
+
+html:not(.dark) .admin-panel .text-blue-600 {
+  color: #2563eb !important;
+}
+
+html:not(.dark) .admin-panel .text-green-600 {
+  color: #16a34a !important;
+}
+
+html:not(.dark) .admin-panel .text-red-600 {
+  color: #dc2626 !important;
+}
+
+html:not(.dark) .admin-panel .hover\:text-blue-900:hover {
+  color: #1e3a8a !important;
+}
+
+html:not(.dark) .admin-panel .hover\:text-green-900:hover {
+  color: #14532d !important;
+}
+
+html:not(.dark) .admin-panel .hover\:text-red-900:hover {
+  color: #7f1d1d !important;
+}
+
+/* Table styling */
+html:not(.dark) .admin-panel table {
   background-color: transparent !important;
-  color: #ffffff !important;
-  border: 2px solid #a855f7 !important;
+  color: inherit !important;
 }
 
-html.dark a[href="/auth/register"].inline-flex:hover {
-  border-color: #c084fc !important;
-  background-color: rgba(168, 85, 247, 0.1) !important;
+html:not(.dark) .admin-panel thead {
+  background-color: #f9fafb !important;
+}
+
+html:not(.dark) .admin-panel tbody {
+  background-color: #ffffff !important;
+}
+
+html:not(.dark) .admin-panel td,
+html:not(.dark) .admin-panel th {
+  color: inherit !important;
+}
+
+html:not(.dark) .admin-panel tr:hover {
+  background-color: #f9fafb !important;
+}
+
+html:not(.dark) .admin-panel .hover\:bg-gray-50:hover {
+  background-color: #f9fafb !important;
+}
+
+html:not(.dark) .admin-panel .hover\:bg-gray-700:hover {
+  background-color: #374151 !important;
+  color: #ffffff !important;
+}
+
+/* Status badges */
+html:not(.dark) .admin-panel .bg-red-100 {
+  background-color: #fee2e2 !important;
+}
+
+html:not(.dark) .admin-panel .text-red-800 {
+  color: #991b1b !important;
+}
+
+html:not(.dark) .admin-panel .bg-green-100 {
+  background-color: #dcfce7 !important;
+}
+
+html:not(.dark) .admin-panel .text-green-800 {
+  color: #166534 !important;
+}
+
+html:not(.dark) .admin-panel .bg-red-50 {
+  background-color: #fef2f2 !important;
+}
+
+html:not(.dark) .admin-panel .text-red-200 {
+  color: #fecaca !important;
+}
+
+html:not(.dark) .admin-panel .text-red-300 {
+  color: #fca5a5 !important;
+}
+
+/* Modal styling */
+html:not(.dark) .admin-panel .modal-backdrop {
+  background-color: rgba(0, 0, 0, 0.5) !important;
+}
+
+html:not(.dark) .admin-panel .modal-content {
+  background-color: #ffffff !important;
+  color: #111827 !important;
+}
+
+html:not(.dark) .admin-panel .fixed {
+  background-color: rgba(0, 0, 0, 0.5) !important;
+}
+
+/* Checkbox styling for admin panel */
+html:not(.dark) .admin-panel input[type="checkbox"] {
+  appearance: none !important;
+  background-color: #ffffff !important;
+  border: 2px solid #d1d5db !important;
+  border-radius: 4px !important;
+  width: 16px !important;
+  height: 16px !important;
+  position: relative !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+}
+
+html:not(.dark) .admin-panel input[type="checkbox"]:checked {
+  background-color: #3b82f6 !important;
+  border-color: #3b82f6 !important;
+}
+
+html:not(.dark) .admin-panel input[type="checkbox"]:checked::before {
+  content: "✓" !important;
+  position: absolute !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  color: #ffffff !important;
+  font-size: 12px !important;
+  font-weight: bold !important;
+  line-height: 1 !important;
+}
+
+/* User avatar gradient fix */
+html:not(.dark) .admin-panel .bg-gradient-to-br {
+  background: linear-gradient(135deg, #3b82f6, #8b5cf6) !important;
+  color: #ffffff !important;
+}
+
+/* User details panel styling */
+html:not(.dark) .admin-panel .space-y-6 > div {
+  color: #374151 !important;
+}
+
+html:not(.dark) .admin-panel .text-sm {
+  color: inherit !important;
+}
+
+html:not(.dark) .admin-panel .font-medium {
+  color: #374151 !important;
+}
+
+html:not(.dark) .admin-panel .uppercase {
+  color: #6b7280 !important;
+}
+
+/* Scrollable sections */
+html:not(.dark) .admin-panel .max-h-40,
+html:not(.dark) .admin-panel .max-h-60 {
+  scrollbar-width: thin !important;
+  scrollbar-color: #cbd5e1 #f1f5f9 !important;
+}
+
+html:not(.dark) .admin-panel .overflow-y-auto::-webkit-scrollbar {
+  width: 6px !important;
+}
+
+html:not(.dark) .admin-panel .overflow-y-auto::-webkit-scrollbar-track {
+  background: #f1f5f9 !important;
+}
+
+html:not(.dark) .admin-panel .overflow-y-auto::-webkit-scrollbar-thumb {
+  background: #cbd5e1 !important;
+  border-radius: 3px !important;
+}
+
+/* Shadow improvements */
+html:not(.dark) .admin-panel .shadow-lg {
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05) !important;
+}
+
+html:not(.dark) .admin-panel .shadow-xl {
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04) !important;
+}
+
+/* Ensure proper text contrast in all scenarios */
+html:not(.dark) .admin-panel .text-xs {
+  font-size: 0.75rem !important;
+  line-height: 1rem !important;
+}
+
+html:not(.dark) .admin-panel .text-sm {
+  font-size: 0.875rem !important;
+  line-height: 1.25rem !important;
+}
+
+/* Loading spinner */
+html:not(.dark) .admin-panel .animate-spin {
+  color: #3b82f6 !important;
+}
+
+/* Date input specific styling */
+html:not(.dark) .admin-panel input[type="date"] {
+  background-color: #ffffff !important;
+  color: #111827 !important;
+  border-color: #d1d5db !important;
 }

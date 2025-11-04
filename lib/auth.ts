@@ -34,11 +34,34 @@ export const authOptions: NextAuthOptions = {
                 name: string;
                 password: string;
                 role: "admin" | "user";
+                is_banned: number;
+                ban_reason: string | null;
+                banned_until: string | null;
               }
             | undefined;
 
           if (!user || !(await bcrypt.compare(credentials.password, user.password))) {
             return null;
+          }
+
+          // Check if user is banned
+          if (user.is_banned) {
+            const now = new Date();
+            const bannedUntil = user.banned_until ? new Date(user.banned_until) : null;
+
+            // If banned permanently or ban is still active, deny login
+            if (!bannedUntil || now < bannedUntil) {
+              console.log(`Login denied for banned user: ${user.email}`);
+              return null;
+            }
+
+            // If ban has expired, automatically unban the user
+            if (bannedUntil && now >= bannedUntil) {
+              db.prepare("UPDATE users SET is_banned = 0, ban_reason = NULL, banned_until = NULL WHERE id = ?").run(
+                user.id
+              );
+              console.log(`Auto-unbanned expired ban for user: ${user.email}`);
+            }
           }
 
           return {
@@ -58,6 +81,28 @@ export const authOptions: NextAuthOptions = {
     strategy: "jwt",
   },
   callbacks: {
+    async signIn({ user, credentials }) {
+      // If user is null, it means authentication failed (possibly due to ban)
+      if (!user && credentials?.email) {
+        // Check if user exists but is banned
+        const bannedUser = db
+          .prepare("SELECT is_banned, ban_reason, banned_until FROM users WHERE email = ?")
+          .get(credentials.email) as
+          | {
+              is_banned: number;
+              ban_reason: string | null;
+              banned_until: string | null;
+            }
+          | undefined;
+
+        if (bannedUser?.is_banned) {
+          console.log(`Banned user attempted login: ${credentials.email}`);
+          // Return false to prevent sign in
+          return false;
+        }
+      }
+      return true;
+    },
     async jwt({ token, user }) {
       if (user) {
         token.role = (user as User).role;

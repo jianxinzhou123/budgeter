@@ -116,7 +116,7 @@ export default function WelcomePage() {
             {/* Hero Subtitle */}
             <p className="text-xl md:text-2xl text-gray-600 dark:text-gray-300 mb-12 max-w-3xl mx-auto leading-relaxed">
               Take control of your financial future with our elegant and powerful budgeting platform. Track expenses,
-              manage categories, and achieve your financial goals with ease.
+              manage categories, and achieve your financial goals with this simple free-to-use tool.
             </p>
 
             {/* Dynamic Blue/Purple CTA Buttons */}
@@ -129,7 +129,7 @@ export default function WelcomePage() {
                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000 ease-out"></div>
 
                 <span className="relative flex items-center gap-3">
-                  Get Started Free
+                  Use For Free
                   <svg
                     className="w-5 h-5 group-hover:translate-x-2 group-hover:scale-125 transition-all duration-500"
                     fill="none"
@@ -183,28 +183,28 @@ export default function WelcomePage() {
             </div>
 
             {/* Feature 2 - Enhanced Animation */}
-            <div className="group p-8 bg-gradient-to-br from-white to-emerald-50/30 dark:from-gray-800 dark:to-emerald-900/20 rounded-2xl shadow-lg hover:shadow-2xl hover:shadow-emerald-500/20 transition-all duration-500 transform hover:-translate-y-4 hover:rotate-1 border border-gray-100 dark:border-gray-700 hover:border-emerald-300 dark:hover:border-emerald-600">
+            <div className="group p-8 bg-gradient-to-br from-white to-cyan-50/30 dark:from-gray-800 dark:to-cyan-900/20 rounded-2xl shadow-lg hover:shadow-2xl hover:shadow-cyan-500/20 transition-all duration-500 transform hover:-translate-y-4 hover:-rotate-1 border border-gray-100 dark:border-gray-700 hover:border-cyan-300 dark:hover:border-cyan-600">
               <div className="relative">
                 <div className="text-5xl mb-6 group-hover:scale-125 group-hover:rotate-12 transition-all duration-500 animate-bounce">
                   🎯
                 </div>
               </div>
-              <h3 className="text-2xl font-bold mb-4 text-gray-800 dark:text-gray-200 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors duration-300">
+              <h3 className="text-2xl font-bold mb-4 text-gray-800 dark:text-gray-200 group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors duration-300">
                 Goal Tracking
               </h3>
               <p className="text-gray-600 dark:text-gray-400 leading-relaxed group-hover:text-gray-700 dark:group-hover:text-gray-300 transition-colors duration-300">
-                Set budgets for different categories and track your progress with real-time updates and notifications.
+                Set budgets for different categories and track your progress.
               </p>
             </div>
 
             {/* Feature 3 - Enhanced Animation */}
-            <div className="group p-8 bg-gradient-to-br from-white to-emerald-50/30 dark:from-gray-800 dark:to-emerald-900/20 rounded-2xl shadow-lg hover:shadow-2xl hover:shadow-emerald-500/20 transition-all duration-500 transform hover:-translate-y-4 hover:rotate-1 border border-gray-100 dark:border-gray-700 hover:border-emerald-300 dark:hover:border-emerald-600">
+            <div className="group p-8 bg-gradient-to-br from-white to-purple-50/30 dark:from-gray-800 dark:to-purple-900/20 rounded-2xl shadow-lg hover:shadow-2xl hover:shadow-purple-500/20 transition-all duration-500 transform hover:-translate-y-4 hover:rotate-1 border border-gray-100 dark:border-gray-700 hover:border-purple-300 dark:hover:border-purple-600">
               <div className="relative">
                 <div className="text-5xl mb-6 group-hover:scale-125 group-hover:rotate-12 transition-all duration-500 animate-bounce">
                   🔒
                 </div>
               </div>
-              <h3 className="text-2xl font-bold mb-4 text-gray-800 dark:text-gray-200 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors duration-300">
+              <h3 className="text-2xl font-bold mb-4 text-gray-800 dark:text-gray-200 group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors duration-300">
                 Secure & Private
               </h3>
               <p className="text-gray-600 dark:text-gray-400 leading-relaxed group-hover:text-gray-700 dark:group-hover:text-gray-300 transition-colors duration-300">
@@ -235,7 +235,7 @@ export default function WelcomePage() {
           </p>
           <Link
             href="/auth/register"
-            className="group relative inline-flex items-center gap-3 px-8 py-4 bg-white dark:bg-transparent text-indigo-600 dark:text-white hover:bg-indigo-50 dark:hover:bg-purple-900/20 font-bold text-lg rounded-xl transition-all duration-500 transform hover:scale-110 hover:-rotate-2 shadow-xl hover:shadow-2xl hover:shadow-white/30 dark:hover:shadow-purple-500/30 overflow-hidden border-0 dark:border-2 dark:border-purple-500 dark:hover:border-purple-400"
+            className="group relative inline-flex items-center gap-3 px-8 py-4 bg-white text-indigo-600 hover:bg-indigo-50 font-bold text-lg rounded-xl transition-all duration-500 transform hover:scale-110 hover:-rotate-2 shadow-xl hover:shadow-2xl hover:shadow-white/30 overflow-hidden"
           >
             {/* Animated Background Shine */}
             <div className="absolute inset-0 bg-gradient-to-r from-transparent via-indigo-200/50 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000 ease-out"></div>

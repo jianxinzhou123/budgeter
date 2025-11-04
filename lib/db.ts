@@ -17,8 +17,13 @@ export function initDb() {
       password TEXT NOT NULL,
       name TEXT NOT NULL,
       role TEXT NOT NULL DEFAULT 'user' CHECK(role IN ('admin', 'user')),
+      is_banned BOOLEAN DEFAULT 0,
+      ban_reason TEXT,
+      banned_until DATETIME,
+      banned_by INTEGER,
       created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-      updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
+      updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+      FOREIGN KEY (banned_by) REFERENCES users(id)
     )
   `);
 

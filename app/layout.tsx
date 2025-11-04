@@ -4,6 +4,7 @@ import "./globals.css";
 import { ThemeProvider } from "./providers/ThemeProvider";
 import SessionProvider from "./providers/SessionProvider";
 import Navbar from "./components/Navbar";
+import BanCheckWrapper from "./components/BanCheckWrapper";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -32,8 +33,10 @@ export default function RootLayout({
       >
         <SessionProvider>
           <ThemeProvider>
-            <Navbar />
-            {children}
+            <BanCheckWrapper>
+              <Navbar />
+              {children}
+            </BanCheckWrapper>
           </ThemeProvider>
         </SessionProvider>
       </body>

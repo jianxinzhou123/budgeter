@@ -114,6 +114,14 @@ export default function Navbar() {
                   >
                     Categories
                   </a>
+                  {session.user?.role === "admin" && (
+                    <a
+                      href="/admin"
+                      className="px-3 py-2 text-sm font-medium text-red-600 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300 transition-colors duration-200 rounded-md hover:bg-red-50 dark:hover:bg-red-900/20 border border-red-200 dark:border-red-800"
+                    >
+                      Admin Panel
+                    </a>
+                  )}
                 </nav>
 
                 {/* User Profile Section with Dropdown */}
@@ -266,6 +274,15 @@ export default function Navbar() {
                     >
                       Categories
                     </a>
+                    {session.user?.role === "admin" && (
+                      <a
+                        href="/admin"
+                        className="block px-3 py-2 text-red-600 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300 font-medium rounded-md hover:bg-red-50 dark:hover:bg-red-900/20 border border-red-200 dark:border-red-800"
+                        onClick={() => setMobileMenuOpen(false)}
+                      >
+                        Admin Panel
+                      </a>
+                    )}
                   </div>
 
                   {/* Mobile User Info */}
