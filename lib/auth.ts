@@ -27,7 +27,7 @@ export const authOptions: NextAuthOptions = {
             return null;
           }
 
-          const user = db.prepare("SELECT * FROM users WHERE email = ?").get(credentials.email) as
+          const user = db.prepare("SELECT * FROM users WHERE LOWER(email) = LOWER(?)").get(credentials.email) as
             | {
                 id: number;
                 email: string;
@@ -86,7 +86,7 @@ export const authOptions: NextAuthOptions = {
       if (!user && credentials?.email) {
         // Check if user exists but is banned
         const bannedUser = db
-          .prepare("SELECT is_banned, ban_reason, banned_until FROM users WHERE email = ?")
+          .prepare("SELECT is_banned, ban_reason, banned_until FROM users WHERE LOWER(email) = LOWER(?)")
           .get(credentials.email) as
           | {
               is_banned: number;

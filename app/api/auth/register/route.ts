@@ -26,7 +26,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Check if user already exists
-    const existingUser = db.prepare("SELECT id FROM users WHERE email = ?").get(email);
+    const existingUser = db.prepare("SELECT id FROM users WHERE LOWER(email) = LOWER(?)").get(email);
 
     if (existingUser) {
       return NextResponse.json({ error: "User with this email already exists" }, { status: 409 });

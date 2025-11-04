@@ -9,13 +9,15 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "Email is required" }, { status: 400 });
     }
 
-    const user = db.prepare(
-      "SELECT is_banned, ban_reason, banned_until FROM users WHERE email = ?"
-    ).get(email) as {
-      is_banned: number;
-      ban_reason: string | null;
-      banned_until: string | null;
-    } | undefined;
+    const user = db
+      .prepare("SELECT is_banned, ban_reason, banned_until FROM users WHERE LOWER(email) = LOWER(?)")
+      .get(email) as
+      | {
+          is_banned: number;
+          ban_reason: string | null;
+          banned_until: string | null;
+        }
+      | undefined;
 
     if (!user) {
       return NextResponse.json({ exists: false });
@@ -24,7 +26,7 @@ export async function POST(request: NextRequest) {
     if (user.is_banned) {
       const now = new Date();
       const bannedUntil = user.banned_until ? new Date(user.banned_until) : null;
-      
+
       // Check if ban is still active
       if (!bannedUntil || now < bannedUntil) {
         return NextResponse.json({
@@ -32,16 +34,15 @@ export async function POST(request: NextRequest) {
           isBanned: true,
           banReason: user.ban_reason,
           bannedUntil: user.banned_until,
-          isPermanent: !user.banned_until
+          isPermanent: !user.banned_until,
         });
       }
     }
 
-    return NextResponse.json({ 
-      exists: true, 
-      isBanned: false 
+    return NextResponse.json({
+      exists: true,
+      isBanned: false,
     });
-
   } catch (error) {
     console.error("Error checking user ban status:", error);
     return NextResponse.json({ error: "Internal server error" }, { status: 500 });

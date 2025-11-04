@@ -12,7 +12,7 @@ async function createAdminUser() {
 
   try {
     // Check if admin user already exists
-    const existingAdmin = db.prepare("SELECT * FROM users WHERE email = ?").get(adminEmail);
+    const existingAdmin = db.prepare("SELECT * FROM users WHERE LOWER(email) = LOWER(?)").get(adminEmail);
 
     if (existingAdmin) {
       console.log("Admin user already exists!");

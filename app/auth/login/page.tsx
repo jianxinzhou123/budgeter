@@ -51,10 +51,10 @@ export default function LoginPage() {
 
             if (banData.isBanned) {
               if (banData.isPermanent) {
-                setError("Your account has been permanently suspended. Contact support for assistance.");
+                setError("Unfortunately, your account has been permanently suspended.");
               } else {
                 const bannedUntil = new Date(banData.bannedUntil).toLocaleDateString();
-                setError(`Your account is suspended until ${bannedUntil}.`);
+                setError(`Unfortunately, your account is suspended until ${bannedUntil}.`);
               }
               // Set ban reason if it exists
               if (banData.banReason && banData.banReason.trim()) {
