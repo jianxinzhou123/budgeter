@@ -24,7 +24,7 @@ async function putHandler(request: Request, { params }: { params: Promise<{ id: 
       "UPDATE transactions SET category_id = ?, amount = ?, description = ?, date = ? WHERE id = ? AND user_id = ?"
     );
     const result = stmt.run(category_id, amount, description || null, date, id, session.user.id);
-    
+
     if (result.changes === 0) {
       return NextResponse.json({ error: "Transaction not found or access denied" }, { status: 404 });
     }
@@ -59,11 +59,11 @@ async function deleteHandler(request: Request, { params }: { params: Promise<{ i
     const { id } = await params;
     const stmt = db.prepare("DELETE FROM transactions WHERE id = ? AND user_id = ?");
     const result = stmt.run(id, session.user.id);
-    
+
     if (result.changes === 0) {
       return NextResponse.json({ error: "Transaction not found or access denied" }, { status: 404 });
     }
-    
+
     return NextResponse.json({ success: true });
   } catch {
     return NextResponse.json({ error: "Failed to delete transaction" }, { status: 500 });

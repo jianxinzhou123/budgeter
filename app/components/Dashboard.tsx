@@ -63,7 +63,7 @@ export default function Dashboard() {
       const timeoutId = setTimeout(() => {
         fetchData();
       }, 500);
-      
+
       return () => clearTimeout(timeoutId);
     }
   }, [status, session, fetchData]);
