@@ -919,6 +919,44 @@ html:not(.dark) .admin-panel .bg-gray-50 {
   background-color: #f9fafb !important;
 }
 
+/* Button text overrides - ensure buttons have proper text colors */
+html:not(.dark) .admin-panel button {
+  color: #4b5563 !important;
+}
+
+html:not(.dark) .admin-panel button:hover {
+  color: #111827 !important;
+}
+
+/* Badge overrides - ensure badges have proper text colors */
+html:not(.dark) .admin-panel .bg-orange-100 {
+  background-color: #fed7aa !important;
+  color: #ea580c !important;
+}
+
+/* Specific override for "Must Reset Password" text */
+html:not(.dark) .admin-panel .text-orange-800 {
+  color: #ea580c !important;
+}
+
+/* Specific override for "Clear Reset" button */
+html:not(.dark) .admin-panel button.text-gray-600 {
+  color: #4b5563 !important;
+}
+
+html:not(.dark) .admin-panel button.text-gray-600:hover {
+  color: #111827 !important;
+}
+
+/* Specific override for "Force Reset" button */
+html:not(.dark) .admin-panel button.text-orange-600 {
+  color: #ea580c !important;
+}
+
+html:not(.dark) .admin-panel button.text-orange-600:hover {
+  color: #c2410c !important;
+}
+
 html:not(.dark) .admin-panel .bg-gray-100 {
   background-color: #f3f4f6 !important;
 }
@@ -1188,4 +1226,17 @@ html:not(.dark) .admin-panel input[type="date"] {
   background-color: #ffffff !important;
   color: #111827 !important;
   border-color: #d1d5db !important;
+}
+
+/* Password Reset Modal Backdrop - Light Mode Fix */
+/* Target the modal backdrop in light mode with very high specificity */
+html:not(.dark) div.fixed[class*="inset-0"][class*="bg-black"] {
+  background-color: rgba(255, 255, 255, 0.9) !important;
+  background-image: none !important;
+}
+
+/* Additional specificity for password modals */
+html:not(.dark) div.fixed.inset-0[class*="z-"][class*="bg-black"] {
+  background: rgba(255, 255, 255, 0.9) !important;
+  backdrop-filter: blur(8px) !important;
 }
