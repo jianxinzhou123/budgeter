@@ -21,6 +21,7 @@ export function initDb() {
       ban_reason TEXT,
       banned_until DATETIME,
       banned_by INTEGER,
+      force_password_reset BOOLEAN DEFAULT 0,
       created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
       updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
       FOREIGN KEY (banned_by) REFERENCES users(id)

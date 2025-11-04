@@ -23,6 +23,7 @@ export async function GET() {
           u.is_banned,
           u.ban_reason,
           u.banned_until,
+          u.force_password_reset,
           u.created_at,
           COUNT(DISTINCT t.id) as transaction_count,
           COUNT(DISTINCT c.id) as category_count,
@@ -31,7 +32,7 @@ export async function GET() {
         FROM users u
         LEFT JOIN transactions t ON u.id = t.user_id
         LEFT JOIN categories c ON u.id = c.user_id
-        GROUP BY u.id, u.email, u.name, u.role, u.is_banned, u.ban_reason, u.banned_until, u.created_at
+        GROUP BY u.id, u.email, u.name, u.role, u.is_banned, u.ban_reason, u.banned_until, u.force_password_reset, u.created_at
         ORDER BY u.created_at DESC
       `
       )

@@ -270,15 +270,36 @@ html:not(.dark) input[type="checkbox"]:focus {
   box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1) !important;
 }
 
-/* Remove navbar hover backgrounds in light mode */
-html:not(.dark) nav a.hover\:bg-blue-50:hover,
-html:not(.dark) nav a:hover {
+/* Remove navbar hover backgrounds in light mode - but allow dropdown buttons */
+html:not(.dark) nav a.hover\:bg-blue-50:hover:not(button),
+html:not(.dark) nav a:hover:not(button) {
   background-color: transparent !important;
 }
 
-/* Ensure navbar links maintain text color change on hover */
-html:not(.dark) nav a:hover {
+/* Ensure navbar links maintain text color change on hover - but not dropdown buttons */
+html:not(.dark) nav a:hover:not(button) {
   color: #2563eb !important;
+}
+
+/* Allow dropdown button hover styles to work - preserve Tailwind classes */
+html:not(.dark) nav button.hover\:bg-blue-50:hover {
+  background-color: rgb(239 246 255) !important; /* blue-50 */
+  color: rgb(29 78 216) !important; /* blue-700 */
+}
+
+html:not(.dark) nav button.hover\:bg-red-50:hover {
+  background-color: rgb(254 242 242) !important; /* red-50 */
+  color: rgb(185 28 28) !important; /* red-700 */
+}
+
+html:not(.dark) nav button.hover\:bg-slate-100:hover {
+  background-color: rgb(241 245 249) !important; /* slate-100 */
+  color: rgb(51 65 85) !important; /* slate-700 */
+}
+
+/* Ensure user profile hover area works */
+html:not(.dark) .group > div.hover\:bg-slate-100:hover {
+  background-color: rgb(241 245 249) !important; /* slate-100 */
 }
 
 /* Enhanced logo animations */

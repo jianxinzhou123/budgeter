@@ -7,6 +7,7 @@ declare module "next-auth" {
       email: string;
       name: string;
       role: "admin" | "user";
+      force_password_reset?: boolean;
     };
   }
 
@@ -15,6 +16,7 @@ declare module "next-auth" {
     email: string;
     name: string;
     role: "admin" | "user";
+    force_password_reset?: boolean;
   }
 }
 

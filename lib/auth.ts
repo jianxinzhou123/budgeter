@@ -11,6 +11,7 @@ export interface User {
   email: string;
   name: string;
   role: "admin" | "user";
+  force_password_reset?: boolean;
 }
 
 export const authOptions: NextAuthOptions = {
@@ -37,6 +38,7 @@ export const authOptions: NextAuthOptions = {
                 is_banned: number;
                 ban_reason: string | null;
                 banned_until: string | null;
+                force_password_reset: number;
               }
             | undefined;
 
@@ -69,6 +71,7 @@ export const authOptions: NextAuthOptions = {
             email: user.email,
             name: user.name,
             role: user.role,
+            force_password_reset: Boolean(user.force_password_reset),
           };
         } catch (error) {
           console.error("Auth error:", error);
@@ -107,6 +110,7 @@ export const authOptions: NextAuthOptions = {
       if (user) {
         token.role = (user as User).role;
         token.id = user.id;
+        token.force_password_reset = (user as User).force_password_reset;
       }
       return token;
     },
@@ -114,6 +118,14 @@ export const authOptions: NextAuthOptions = {
       if (token && session.user) {
         session.user.id = token.id as string;
         session.user.role = token.role as "admin" | "user";
+
+        // Always fetch current force_password_reset status from database
+        const currentUser = db.prepare("SELECT force_password_reset FROM users WHERE id = ?").get(token.id) as
+          | { force_password_reset: number }
+          | undefined;
+
+        const userWithReset = session.user as User;
+        userWithReset.force_password_reset = Boolean(currentUser?.force_password_reset);
       }
       return session;
     },

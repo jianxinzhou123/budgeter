@@ -5,6 +5,7 @@ import { ThemeProvider } from "./providers/ThemeProvider";
 import SessionProvider from "./providers/SessionProvider";
 import Navbar from "./components/Navbar";
 import BanCheckWrapper from "./components/BanCheckWrapper";
+import ForcePasswordResetWrapper from "./components/ForcePasswordResetWrapper";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -34,8 +35,10 @@ export default function RootLayout({
         <SessionProvider>
           <ThemeProvider>
             <BanCheckWrapper>
-              <Navbar />
-              {children}
+              <ForcePasswordResetWrapper>
+                <Navbar />
+                {children}
+              </ForcePasswordResetWrapper>
             </BanCheckWrapper>
           </ThemeProvider>
         </SessionProvider>

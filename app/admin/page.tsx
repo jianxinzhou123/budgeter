@@ -12,6 +12,7 @@ interface User {
   is_banned: number;
   ban_reason: string | null;
   banned_until: string | null;
+  force_password_reset: number;
   created_at: string;
   transaction_count: number;
   category_count: number;
@@ -139,6 +140,25 @@ export default function AdminPanel() {
     }
   };
 
+  const toggleForcePasswordReset = async (userId: number, forceReset: boolean) => {
+    try {
+      const response = await fetch("/api/admin/force-password-reset", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ userId, forceReset }),
+      });
+
+      if (response.ok) {
+        fetchUsers();
+        if (selectedUser && selectedUser.user.id === userId) {
+          fetchUserDetails(userId);
+        }
+      }
+    } catch (error) {
+      console.error("Error updating force password reset:", error);
+    }
+  };
+
   if (status === "loading" || loading) {
     return (
       <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
@@ -184,7 +204,7 @@ export default function AdminPanel() {
                       </th>
                     </tr>
                   </thead>
-                  <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+                  <tbody className="bg-white dark:bg-gray-800 dark:divide-gray-700">
                     {users.map((user) => (
                       <tr key={user.id} className="hover:bg-gray-50 dark:hover:bg-gray-700">
                         <td className="px-6 py-4 whitespace-nowrap">
@@ -209,22 +229,29 @@ export default function AdminPanel() {
                           </div>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap">
-                          {user.is_banned ? (
-                            <div>
-                              <span className="inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200">
-                                Banned
+                          <div className="space-y-1">
+                            {user.is_banned ? (
+                              <div>
+                                <span className="inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200">
+                                  Banned
+                                </span>
+                                {user.banned_until && (
+                                  <div className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                                    Until: {new Date(user.banned_until).toLocaleDateString()}
+                                  </div>
+                                )}
+                              </div>
+                            ) : (
+                              <span className="inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">
+                                Active
                               </span>
-                              {user.banned_until && (
-                                <div className="text-xs text-gray-500 dark:text-gray-400 mt-1">
-                                  Until: {new Date(user.banned_until).toLocaleDateString()}
-                                </div>
-                              )}
-                            </div>
-                          ) : (
-                            <span className="inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">
-                              Active
-                            </span>
-                          )}
+                            )}
+                            {user.force_password_reset ? (
+                              <span className="inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200">
+                                Must Reset Password
+                              </span>
+                            ) : null}
+                          </div>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
                           <div className="flex space-x-2">
@@ -249,6 +276,23 @@ export default function AdminPanel() {
                                     className="text-red-600 hover:text-red-900 dark:text-red-400 dark:hover:text-red-300"
                                   >
                                     Ban
+                                  </button>
+                                )}
+                                {user.force_password_reset ? (
+                                  <button
+                                    onClick={() => toggleForcePasswordReset(user.id, false)}
+                                    className="text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300"
+                                    title="Remove password reset requirement"
+                                  >
+                                    Clear Reset
+                                  </button>
+                                ) : (
+                                  <button
+                                    onClick={() => toggleForcePasswordReset(user.id, true)}
+                                    className="text-orange-600 hover:text-orange-900 dark:text-orange-400 dark:hover:text-orange-300"
+                                    title="Force user to reset password on next login"
+                                  >
+                                    Force Reset
                                   </button>
                                 )}
                               </>
