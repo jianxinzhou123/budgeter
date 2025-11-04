@@ -56,7 +56,7 @@ export default function BanCheckWrapper({ children }: { children: React.ReactNod
                           />
                         </svg>
                       </div>
-                      <div className="ml-3">
+                      <div className="ml-3 flex flex-col items-start">
                         <p className="text-sm font-medium">Reason for suspension:</p>
                         <p className="text-sm mt-1">{banInfo.reason}</p>
                       </div>
