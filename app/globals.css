@@ -15,9 +15,9 @@
 /* Theme configuration for light/dark modes */
 :root {
   --background: #ffffff;
-  --foreground: #111827;
+  --foreground: #ffffff;
   --card-background: #ffffff;
-  --card-foreground: #111827;
+  --card-foreground: #ffffff;
 }
 
 :root.dark,
@@ -43,7 +43,7 @@ body {
 /* Force light mode when no dark class */
 html:not(.dark) {
   --background: #ffffff !important;
-  --foreground: #111827 !important;
+  --foreground: #ffffff !important;
 }
 
 /* Ensure Tailwind dark: classes work */
@@ -783,4 +783,28 @@ html:not(.dark) {
 
 html.dark {
   background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+}
+
+/* Specific sign-in button white text override */
+html:not(.dark) a[href="/auth/login"] span.text-white,
+html:not(.dark) a[href="/auth/login"] .text-white {
+  color: #ffffff !important;
+}
+
+/* Start Your Journey button specific styling - only target inline-flex CTA button */
+html:not(.dark) a[href="/auth/register"].inline-flex {
+  background-color: #ffffff !important;
+  color: #4f46e5 !important;
+  border: none !important;
+}
+
+html.dark a[href="/auth/register"].inline-flex {
+  background-color: transparent !important;
+  color: #ffffff !important;
+  border: 2px solid #a855f7 !important;
+}
+
+html.dark a[href="/auth/register"].inline-flex:hover {
+  border-color: #c084fc !important;
+  background-color: rgba(168, 85, 247, 0.1) !important;
 }

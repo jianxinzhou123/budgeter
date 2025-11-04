@@ -68,27 +68,10 @@ export default function Navbar() {
         <div className="flex items-center justify-between h-18">
           {/* Logo and Brand */}
           <div className="flex items-center gap-4">
-            <a href="/" className="flex items-center gap-4 group relative">
-              {/* Interactive Logo Container */}
-              <div className="relative">
-                {/* Animated background circle */}
-                <div className="absolute inset-0 bg-gradient-to-br from-blue-400/20 to-purple-400/20 dark:from-blue-500/30 dark:to-purple-500/30 rounded-full scale-0 group-hover:scale-150 transition-transform duration-500 ease-out"></div>
-
-                {/* Pulsing ring effect */}
-                <div className="absolute inset-0 border-2 border-blue-400/30 dark:border-blue-500/40 rounded-full scale-0 group-hover:scale-125 group-hover:border-transparent transition-all duration-700 ease-out"></div>
-
-                {/* Main logo with multiple effects */}
-                <div className="text-4xl relative z-10 group-hover:scale-110 group-hover:rotate-12 transition-all duration-300 ease-out filter group-hover:brightness-110 group-hover:drop-shadow-lg">
-                  💰
-                </div>
-
-                {/* Sparkle effects */}
-                <div className="absolute -top-1 -right-1 text-yellow-400 text-xs opacity-0 group-hover:opacity-100 group-hover:animate-ping transition-opacity duration-300">
-                  ✨
-                </div>
-                <div className="absolute -bottom-1 -left-1 text-blue-400 text-xs opacity-0 group-hover:opacity-100 group-hover:animate-pulse transition-opacity duration-300 delay-150 z-10">
-                  ✨
-                </div>
+            <a href="/" className="flex items-center gap-3 group relative">
+              {/* Professional Logo */}
+              <div className="relative w-10 h-10 rounded-lg bg-gradient-to-br from-blue-600 to-purple-600 dark:from-blue-500 dark:to-purple-500 shadow-sm group-hover:shadow-md group-hover:from-blue-700 group-hover:to-purple-700 dark:group-hover:from-blue-400 dark:group-hover:to-purple-400 transition-all duration-300 flex items-center justify-center">
+                <div className="text-lg text-white group-hover:scale-110 transition-transform duration-300">💰</div>
               </div>
 
               <div className="relative">
