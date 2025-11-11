@@ -1227,16 +1227,3 @@ html:not(.dark) .admin-panel input[type="date"] {
   color: #111827 !important;
   border-color: #d1d5db !important;
 }
-
-/* Password Reset Modal Backdrop - Light Mode Fix */
-/* Target the modal backdrop in light mode with very high specificity */
-html:not(.dark) div.fixed[class*="inset-0"][class*="bg-black"] {
-  background-color: rgba(255, 255, 255, 0.9) !important;
-  background-image: none !important;
-}
-
-/* Additional specificity for password modals */
-html:not(.dark) div.fixed.inset-0[class*="z-"][class*="bg-black"] {
-  background: rgba(255, 255, 255, 0.9) !important;
-  backdrop-filter: blur(8px) !important;
-}

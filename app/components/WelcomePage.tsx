@@ -169,7 +169,7 @@ export default function WelcomePage() {
             {/* Feature 1 - Enhanced Animation */}
             <div className="group p-8 bg-gradient-to-br from-white to-emerald-50/30 dark:from-gray-800 dark:to-emerald-900/20 rounded-2xl shadow-lg hover:shadow-2xl hover:shadow-emerald-500/20 transition-all duration-500 transform hover:-translate-y-4 hover:rotate-1 border border-gray-100 dark:border-gray-700 hover:border-emerald-300 dark:hover:border-emerald-600">
               <div className="relative">
-                <div className="text-5xl mb-6 group-hover:scale-125 group-hover:rotate-12 transition-all duration-500 animate-bounce">
+                <div className="text-5xl mb-6 group-hover:scale-125 group-hover:rotate-12 transition-all duration-500">
                   📊
                 </div>
               </div>
@@ -185,7 +185,7 @@ export default function WelcomePage() {
             {/* Feature 2 - Enhanced Animation */}
             <div className="group p-8 bg-gradient-to-br from-white to-cyan-50/30 dark:from-gray-800 dark:to-cyan-900/20 rounded-2xl shadow-lg hover:shadow-2xl hover:shadow-cyan-500/20 transition-all duration-500 transform hover:-translate-y-4 hover:-rotate-1 border border-gray-100 dark:border-gray-700 hover:border-cyan-300 dark:hover:border-cyan-600">
               <div className="relative">
-                <div className="text-5xl mb-6 group-hover:scale-125 group-hover:rotate-12 transition-all duration-500 animate-bounce">
+                <div className="text-5xl mb-6 group-hover:scale-125 group-hover:rotate-12 transition-all duration-500">
                   🎯
                 </div>
               </div>
@@ -200,7 +200,7 @@ export default function WelcomePage() {
             {/* Feature 3 - Enhanced Animation */}
             <div className="group p-8 bg-gradient-to-br from-white to-purple-50/30 dark:from-gray-800 dark:to-purple-900/20 rounded-2xl shadow-lg hover:shadow-2xl hover:shadow-purple-500/20 transition-all duration-500 transform hover:-translate-y-4 hover:rotate-1 border border-gray-100 dark:border-gray-700 hover:border-purple-300 dark:hover:border-purple-600">
               <div className="relative">
-                <div className="text-5xl mb-6 group-hover:scale-125 group-hover:rotate-12 transition-all duration-500 animate-bounce">
+                <div className="text-5xl mb-6 group-hover:scale-125 group-hover:rotate-12 transition-all duration-500">
                   🔒
                 </div>
               </div>
