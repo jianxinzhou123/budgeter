@@ -18,7 +18,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Budget Tracker - Manage Your Finances",
+  title: "Komorebi - Manage Your Finances",
   description: "A powerful budgeting app to track your income, expenses, and manage your financial goals with ease.",
 };
 

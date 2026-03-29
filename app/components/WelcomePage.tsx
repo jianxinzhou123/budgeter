@@ -105,7 +105,7 @@ export default function WelcomePage() {
             {/* Dynamic Blue/Purple Hero Title */}
             <h1 className="text-6xl md:text-7xl font-bold mb-6">
               <span className="inline-block bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 dark:from-blue-400 dark:to-purple-400 bg-clip-text text-transparent hover:scale-105 transition-transform duration-500 cursor-default">
-                Sam&apos;s Budget
+                Komorebi
               </span>
               <br />
               <span className="inline-block bg-gradient-to-r from-purple-600 via-violet-600 to-indigo-600 dark:from-purple-400 dark:to-indigo-400 bg-clip-text text-transparent hover:scale-105 transition-transform duration-500 delay-100 cursor-default animate-pulse">
